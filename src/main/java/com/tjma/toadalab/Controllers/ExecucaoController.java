@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +21,10 @@ import main.java.com.tjma.toadalab.Models.Execucao;
 import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
 
 @RestController
-@RequestMapping(value="/execucoes")
+@RequestMapping(value="/execucoes", produces = "application/vnd.baeldung.api.v1+json")
 @CrossOrigin(origins = "*")
 public class ExecucaoController {
+	
 	@Autowired
 	private ExecucaoRepository executeRepository;
 	
@@ -46,14 +46,14 @@ public class ExecucaoController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
-	@PostMapping()
+	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Execucao criar(@RequestBody Execucao execucao) {
 		return executeRepository.save(execucao);
 	}
 	
 	@PutMapping("/{executeId}")
-	public ResponseEntity<Execucao> atualizar (@Validated @RequestBody Execucao execucao, @PathVariable Long executeId) {
+	public ResponseEntity<Execucao> atualizar(@RequestBody Execucao execucao, @PathVariable Long executeId) {
 
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
