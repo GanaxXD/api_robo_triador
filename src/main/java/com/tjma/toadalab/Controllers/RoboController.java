@@ -47,13 +47,13 @@ public class RoboController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
-	@PostMapping()
+	@PostMapping(consumes = "application/vnd.baeldung.api.v1+json")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Robo criar(@RequestBody Robo robo) {
 		return roboRepository.save(robo);
 	}
 	
-	@PutMapping("/{roboId}")
+	@PutMapping(name = "/{roboId}", consumes = "application/vnd.baeldung.api.v1+json")
 	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
 
 		if(!roboRepository.existsById(roboId)) {
