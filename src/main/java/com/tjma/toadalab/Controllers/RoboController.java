@@ -22,7 +22,7 @@ import main.java.com.tjma.toadalab.Models.Robo;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
-@RequestMapping(value="/robos", produces={"application/json", "application/text"}, consumes = {"application/json", "application/text"})
+@RequestMapping(value="/robos", consumes = {"application/json", "application/text"})
 @CrossOrigin(origins="*")
 public class RoboController {
 
