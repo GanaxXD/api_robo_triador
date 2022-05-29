@@ -22,7 +22,7 @@ import main.java.com.tjma.toadalab.Models.Robo;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
-@RequestMapping(value="/robos", produces="application/vnd.baeldung.api.v1+json", consumes = "application/vnd.baeldung.api.v1+json")
+@RequestMapping(value="/robos", produces={"application/json"}, consumes = {"application/json"})
 @CrossOrigin(origins="*")
 public class RoboController {
 
@@ -47,13 +47,13 @@ public class RoboController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
-	@PostMapping(consumes = "application/vnd.baeldung.api.v1+json")
+	@PostMapping(consumes = {"application/json"})
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Robo criar(@RequestBody Robo robo) {
 		return roboRepository.save(robo);
 	}
 	
-	@PutMapping(name = "/{roboId}", consumes = "application/vnd.baeldung.api.v1+json")
+	@PutMapping(name = "/{roboId}", consumes = {"application/json"})
 	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
 
 		if(!roboRepository.existsById(roboId)) {
