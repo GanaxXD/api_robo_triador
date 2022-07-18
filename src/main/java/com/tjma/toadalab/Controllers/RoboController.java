@@ -60,7 +60,7 @@ public class RoboController {
 			return ResponseEntity.notFound().build();
 		}
 				
-		robo.setId(roboId);
+		//robo.setId(roboId);
 		return ResponseEntity.ok(roboRepository.save(robo));
 	}
 	

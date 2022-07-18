@@ -1,6 +1,7 @@
 package main.java.com.tjma.toadalab.Models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,5 +32,6 @@ public class Robo {
 	@Column(name = "quantidade_vezes_rodou")
 	private int quantidadeVezesRodou;
 	
-
+	@OneToMany
+	private List<Execucao> execucoes; 
 }

@@ -59,7 +59,7 @@ public class ExecucaoController {
 			return ResponseEntity.notFound().build();
 		}
 				
-		execucao.setId(executeId);
+		//execucao.setId(executeId);
 		return ResponseEntity.ok(executeRepository.save(execucao));
 	}
 	
