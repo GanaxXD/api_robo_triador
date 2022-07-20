@@ -1,5 +1,6 @@
 package main.java.com.tjma.toadalab.Controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import main.java.com.tjma.toadalab.Models.Execucao;
 import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
@@ -49,6 +52,7 @@ public class ExecucaoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Execucao criar(@RequestBody Execucao execucao) {
+		execucao.setRodouEm(LocalDate.now());
 		return executeRepository.save(execucao);
 	}
 	
@@ -58,8 +62,6 @@ public class ExecucaoController {
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
 		}
-				
-		//execucao.setId(executeId);
 		return ResponseEntity.ok(executeRepository.save(execucao));
 	}
 	

@@ -3,7 +3,7 @@ create table if not exists execucoes(
 	robo_id INT NOT NULL,
 	tempo_etiquetando_processos DATE NOT NULL,
 	quantidade_processos_etiquetados INT NOT NULL,
-	rodou_em DATE CURRENT_DATE,
+	rodou_em DATE DEFAULT CURRENT_DATE,
 	encontrou_erro BOOLEAN,
 	
 	CONSTRAINT fk_id_robo FOREIGN KEY (robo_id) REFERENCES robos(id)

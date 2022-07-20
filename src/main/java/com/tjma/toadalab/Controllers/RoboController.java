@@ -1,5 +1,6 @@
 package main.java.com.tjma.toadalab.Controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,11 @@ public class RoboController {
 	@PostMapping(consumes = {"application/json", "application/text"})
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Robo criar(@RequestBody Robo robo) {
+		if(robo.equals(null)) {
+			ResponseEntity.badRequest().build();
+			return null;
+		}
+		robo.setInstaladoEm(LocalDate.now());
 		return roboRepository.save(robo);
 	}
 	
@@ -59,8 +65,7 @@ public class RoboController {
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
 		}
-				
-		//robo.setId(roboId);
+
 		return ResponseEntity.ok(roboRepository.save(robo));
 	}
 	
