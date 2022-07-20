@@ -1,6 +1,7 @@
 package main.java.com.tjma.toadalab.Models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +31,53 @@ public class Robo {
 	
 	@Column(name = "quantidade_vezes_rodou")
 	private int quantidadeVezesRodou;
-	
 
+
+	@Override
+	public String toString() {
+		return "Robo [id=" + id + ", tipo=" + tipo + ", localImplantado=" + localImplantado + ", instaladoEm="
+				+ instaladoEm + ", quantidadeVezesRodou=" + quantidadeVezesRodou + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getLocalImplantado() {
+		return localImplantado;
+	}
+
+	public void setLocalImplantado(String localImplantado) {
+		this.localImplantado = localImplantado;
+	}
+
+	public LocalDate getInstaladoEm() {
+		return instaladoEm;
+	}
+
+	public void setInstaladoEm(LocalDate instaladoEm) {
+		this.instaladoEm = instaladoEm;
+	}
+
+	public int getQuantidadeVezesRodou() {
+		return quantidadeVezesRodou;
+	}
+
+	public void setQuantidadeVezesRodou(int quantidadeVezesRodou) {
+		this.quantidadeVezesRodou = quantidadeVezesRodou;
+	}
+	
+	
 }

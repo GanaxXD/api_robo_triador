@@ -8,9 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.ForeignKey;
 
 import lombok.Data;
 
@@ -35,5 +32,62 @@ public class Execucao {
 	
 	@ManyToOne
 	private Robo robo;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTempoEtiquetandoProcessos() {
+		return tempoEtiquetandoProcessos;
+	}
+
+	public void setTempoEtiquetandoProcessos(String tempoEtiquetandoProcessos) {
+		this.tempoEtiquetandoProcessos = tempoEtiquetandoProcessos;
+	}
+
+	public int getQuantidadeProcessosEtiquetados() {
+		return quantidadeProcessosEtiquetados;
+	}
+
+	public void setQuantidadeProcessosEtiquetados(int quantidadeProcessosEtiquetados) {
+		this.quantidadeProcessosEtiquetados = quantidadeProcessosEtiquetados;
+	}
+
+	public LocalDate getRodouEm() {
+		return rodouEm;
+	}
+
+	public void setRodouEm(LocalDate rodouEm) {
+		this.rodouEm = rodouEm;
+	}
+
+	public boolean isEncontrouErro() {
+		return encontrouErro;
+	}
+
+	public void setEncontrouErro(boolean encontrouErro) {
+		this.encontrouErro = encontrouErro;
+	}
+
+	public Robo getRobo() {
+		return robo;
+	}
+
+	public void setRobo(Robo robo) {
+		this.robo = robo;
+	}
+
+	@Override
+	public String toString() {
+		return "Execucao [id=" + id + ", tempoEtiquetandoProcessos=" + tempoEtiquetandoProcessos
+				+ ", quantidadeProcessosEtiquetados=" + quantidadeProcessosEtiquetados + ", rodouEm=" + rodouEm
+				+ ", encontrouErro=" + encontrouErro + ", robo=" + robo + "]";
+	}
+	
+	
 }
 
