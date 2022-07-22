@@ -32,6 +32,8 @@ public class Robo {
 	@Column(name = "quantidade_vezes_rodou")
 	private int quantidadeVezesRodou;
 
+	@Column(name = "nome_robo")
+	private String nomeRobo;
 
 	@Override
 	public String toString() {
@@ -78,6 +80,12 @@ public class Robo {
 	public void setQuantidadeVezesRodou(int quantidadeVezesRodou) {
 		this.quantidadeVezesRodou = quantidadeVezesRodou;
 	}
-	
-	
+
+	public String getNomeRobo() {
+		return nomeRobo;
+	}
+
+	public void setNomeRobo(String nomeRobo) {
+		this.nomeRobo = nomeRobo;
+	}
 }
