@@ -2,12 +2,17 @@ package main.java.com.tjma.toadalab.Models;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ForeignKey;
 
 import lombok.Data;
 
@@ -30,7 +35,9 @@ public class Execucao {
 	@Column(name = "encontrou_erro")
 	private boolean encontrouErro;
 	
-	@ManyToOne
+	@ManyToOne()
+	@ForeignKey(name = "robo_id")
+	@JoinColumn(name="robo_id")
 	private Robo robo;
 
 	public Long getId() {

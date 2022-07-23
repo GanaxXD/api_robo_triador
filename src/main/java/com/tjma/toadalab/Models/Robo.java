@@ -3,13 +3,19 @@ package main.java.com.tjma.toadalab.Models;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Data;
 
@@ -32,7 +38,13 @@ public class Robo {
 	@Column(name = "quantidade_vezes_rodou")
 	private int quantidadeVezesRodou;
 
+	@Column(name = "nome_robo")
+	private String nomeRobo;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "robo_id")
+	private List<Execucao> execucoes;
+	
 	@Override
 	public String toString() {
 		return "Robo [id=" + id + ", tipo=" + tipo + ", localImplantado=" + localImplantado + ", instaladoEm="
@@ -77,6 +89,22 @@ public class Robo {
 
 	public void setQuantidadeVezesRodou(int quantidadeVezesRodou) {
 		this.quantidadeVezesRodou = quantidadeVezesRodou;
+	}
+
+	public String getNomeRobo() {
+		return nomeRobo;
+	}
+
+	public void setNomeRobo(String nomeRobo) {
+		this.nomeRobo = nomeRobo;
+	}
+
+	public List<Execucao> getExecucoes() {
+		return execucoes;
+	}
+
+	public void setExecucoes(List<Execucao> execucoes) {
+		this.execucoes = execucoes;
 	}
 	
 	
