@@ -8,5 +8,5 @@ import main.java.com.tjma.toadalab.Models.Robo;
 
 @Repository
 public interface RobosRepository extends JpaRepository<Robo, Long>{
-
+	
 }
