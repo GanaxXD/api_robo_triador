@@ -36,7 +36,7 @@ public class RoboController {
 	}
 	
 	@GetMapping("/{roboId}")
-	public ResponseEntity<Robo> buscar(@PathVariable Long roboId) {
+	public ResponseEntity<Robo> buscarpeloId(@PathVariable Long roboId) {
 		Optional<Robo> robo = roboRepository.findById(roboId);
 		
 		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
@@ -47,6 +47,20 @@ public class RoboController {
 		
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
+	
+	@GetMapping("/{roboName}")
+	public ResponseEntity<Robo> buscarpeloNome(@PathVariable String roboName) {
+		List<Robo> robo = roboRepository.findByNomeRoboContains(roboName);
+		
+		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
+		if(!robo.isEmpty()) {
+			//retorna o código 200 pra requisição
+			return ResponseEntity.ok(robo.get(0));
+		}
+		
+		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
+	}
+	
 	
 	@PostMapping(consumes = {"application/json", "application/text"})
 	@ResponseStatus(value = HttpStatus.CREATED)
@@ -60,7 +74,7 @@ public class RoboController {
 	}
 	
 	@PutMapping(name = "/{roboId}", consumes = {"application/json", "application/text"})
-	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
+	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable(value = "roboId") Long roboId) {
 
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
