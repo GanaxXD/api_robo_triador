@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.java.com.tjma.toadalab.Models.Robo;
+import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
@@ -29,6 +30,9 @@ public class RoboController {
 
 	@Autowired
 	private RobosRepository roboRepository;
+	
+	@Autowired
+	private ExecucaoRepository execRepository;
 	
 	@GetMapping()
 	public List<Robo> listar(){
@@ -48,7 +52,7 @@ public class RoboController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
-	@GetMapping("/{roboName}")
+	@GetMapping("/buscar/{roboName}")
 	public ResponseEntity<Robo> buscarpeloNome(@PathVariable String roboName) {
 		List<Robo> robo = roboRepository.findByNomeRoboContains(roboName);
 		
@@ -87,7 +91,7 @@ public class RoboController {
 	public ResponseEntity<Void> deletar (@PathVariable Long roboId){
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
-		}
+		} 
 		//clientInterface.deletar(clientInterface.findById(clientId).get());
 		roboRepository.delete(roboRepository.findById(roboId).get());
 		return ResponseEntity.noContent().build();

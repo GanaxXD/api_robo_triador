@@ -10,5 +10,4 @@ import main.java.com.tjma.toadalab.Models.Execucao;
 @Repository
 public interface ExecucaoRepository extends JpaRepository<Execucao, Long>{
 
-	List<Execucao> findByRobo();
 }

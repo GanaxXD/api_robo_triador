@@ -1,13 +1,16 @@
 package main.java.com.tjma.toadalab.Models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -30,8 +33,13 @@ public class Execucao {
 	@Column(name = "encontrou_erro")
 	private boolean encontrouErro;
 	
-	@ManyToOne
-	private Robo robo;
+	@ManyToMany()
+	@JoinTable(name="execucoes_robos",  
+		joinColumns = @JoinColumn(name="execucao_id"),
+		inverseJoinColumns = @JoinColumn(name="robo_id")
+	)
+	@Column(name = "robo_id")
+	private List<Robo> robo;
 
 	public Long getId() {
 		return id;
@@ -73,11 +81,11 @@ public class Execucao {
 		this.encontrouErro = encontrouErro;
 	}
 
-	public Robo getRobo() {
+	public List<Robo> getRobo() {
 		return robo;
 	}
 
-	public void setRobo(Robo robo) {
+	public void setRobo(List<Robo> robo) {
 		this.robo = robo;
 	}
 

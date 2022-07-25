@@ -3,12 +3,13 @@ package main.java.com.tjma.toadalab.Models;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -34,6 +35,9 @@ public class Robo {
 
 	@Column(name = "nome_robo")
 	private String nomeRobo;
+	
+	@ManyToMany(mappedBy = "robo")
+	private List<Execucao> execucoes;
 
 	@Override
 	public String toString() {
@@ -81,6 +85,14 @@ public class Robo {
 		this.quantidadeVezesRodou = quantidadeVezesRodou;
 	}
 
+	
+	public List<Execucao> getExecucoes() {
+		return execucoes;
+	}
+
+	public void setExecucoes(List<Execucao> execucoes) {
+		this.execucoes = execucoes;
+	}
 
 	public String getNomeRobo() {
 		return nomeRobo;
