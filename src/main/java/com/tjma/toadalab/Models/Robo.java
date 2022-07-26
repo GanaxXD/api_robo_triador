@@ -35,9 +35,6 @@ public class Robo {
 
 	@Column(name = "nome_robo")
 	private String nomeRobo;
-	
-	@ManyToMany(mappedBy = "robo")
-	private List<Execucao> execucoes;
 
 	@Override
 	public String toString() {
@@ -83,15 +80,6 @@ public class Robo {
 
 	public void setQuantidadeVezesRodou(int quantidadeVezesRodou) {
 		this.quantidadeVezesRodou = quantidadeVezesRodou;
-	}
-
-	
-	public List<Execucao> getExecucoes() {
-		return execucoes;
-	}
-
-	public void setExecucoes(List<Execucao> execucoes) {
-		this.execucoes = execucoes;
 	}
 
 	public String getNomeRobo() {

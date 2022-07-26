@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -33,13 +34,8 @@ public class Execucao {
 	@Column(name = "encontrou_erro")
 	private boolean encontrouErro;
 	
-	@ManyToMany()
-	@JoinTable(name="execucoes_robos",  
-		joinColumns = @JoinColumn(name="execucao_id"),
-		inverseJoinColumns = @JoinColumn(name="robo_id")
-	)
-	@Column(name = "robo_id")
-	private List<Robo> robo;
+	@ManyToOne
+	private Robo robo;
 
 	public Long getId() {
 		return id;
@@ -81,11 +77,11 @@ public class Execucao {
 		this.encontrouErro = encontrouErro;
 	}
 
-	public List<Robo> getRobo() {
+	public Robo getRobo() {
 		return robo;
 	}
 
-	public void setRobo(List<Robo> robo) {
+	public void setRobo(Robo robo) {
 		this.robo = robo;
 	}
 

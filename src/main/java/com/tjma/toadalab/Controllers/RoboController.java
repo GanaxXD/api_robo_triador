@@ -77,8 +77,8 @@ public class RoboController {
 		return roboRepository.save(robo);
 	}
 	
-	@PutMapping(name = "/{roboId}", consumes = {"application/json", "application/text"})
-	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable(value = "roboId") Long roboId) {
+	@PutMapping("/{roboId}")
+	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
 
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
