@@ -83,7 +83,7 @@ public class RoboController {
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
 		}
-
+		robo.setId(roboId);
 		return ResponseEntity.ok(roboRepository.save(robo));
 	}
 	

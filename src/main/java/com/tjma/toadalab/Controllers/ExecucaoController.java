@@ -62,6 +62,7 @@ public class ExecucaoController {
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
 		}
+		execucao.setId(executeId);
 		return ResponseEntity.ok(executeRepository.save(execucao));
 	}
 	
