@@ -29,9 +29,6 @@ public class Robo {
 	
 	@Column(name = "instalado_em")
 	private LocalDate instaladoEm;
-	
-	@Column(name = "quantidade_vezes_rodou")
-	private int quantidadeVezesRodou;
 
 	@Column(name = "nome_robo")
 	private String nomeRobo;
@@ -39,7 +36,7 @@ public class Robo {
 	@Override
 	public String toString() {
 		return "Robo [id=" + id + ", tipo=" + tipo + ", localImplantado=" + localImplantado + ", instaladoEm="
-				+ instaladoEm + ", quantidadeVezesRodou=" + quantidadeVezesRodou + "]";
+				+ instaladoEm + "]";
 	}
 
 	public Long getId() {
@@ -72,14 +69,6 @@ public class Robo {
 
 	public void setInstaladoEm(LocalDate instaladoEm) {
 		this.instaladoEm = instaladoEm;
-	}
-
-	public int getQuantidadeVezesRodou() {
-		return quantidadeVezesRodou;
-	}
-
-	public void setQuantidadeVezesRodou(int quantidadeVezesRodou) {
-		this.quantidadeVezesRodou = quantidadeVezesRodou;
 	}
 
 	public String getNomeRobo() {

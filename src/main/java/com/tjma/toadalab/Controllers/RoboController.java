@@ -24,7 +24,7 @@ import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
-@RequestMapping(value="/robos", produces = "application/vnd.baeldung.api.v1+json")
+@RequestMapping(value="/robos", produces = "application/json")
 @CrossOrigin(origins="*")
 public class RoboController {
 
@@ -52,8 +52,12 @@ public class RoboController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
-	@GetMapping("/buscar/{roboName}")
-	public ResponseEntity<Robo> buscarpeloNome(@PathVariable String roboName) {
+	@GetMapping("/buscar/{numeroRobo}")
+	public ResponseEntity<Robo> buscarpeloNome(@PathVariable String numeroRobo) {
+		
+		//Passando acentos pela URL, o decodificador está encontrando erros na conversão (RFC 7230 e RFC 3986)
+		String roboName = "ToadaRobô"+numeroRobo;
+		
 		List<Robo> robo = roboRepository.findByNomeRoboContains(roboName);
 		
 		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
@@ -82,6 +86,10 @@ public class RoboController {
 
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
+		}
+		if(robo.getInstaladoEm() == null || robo.getInstaladoEm().equals("")) {
+			Robo r = roboRepository.findById(roboId).get();
+			robo.setInstaladoEm(r.getInstaladoEm());
 		}
 		robo.setId(roboId);
 		return ResponseEntity.ok(roboRepository.save(robo));

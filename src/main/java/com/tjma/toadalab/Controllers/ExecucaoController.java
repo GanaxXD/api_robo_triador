@@ -21,15 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import main.java.com.tjma.toadalab.Models.Execucao;
+import main.java.com.tjma.toadalab.Models.Robo;
 import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
+import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
-@RequestMapping(value="/execucoes", produces = "application/vnd.baeldung.api.v1+json")
+@RequestMapping(value="/execucoes", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class ExecucaoController {
 	
 	@Autowired
 	private ExecucaoRepository executeRepository;
+	
+	@Autowired
+	private RobosRepository robosRepository;
 	
 	@GetMapping()
 	public List<Execucao> listar(){
@@ -50,18 +55,24 @@ public class ExecucaoController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public Execucao criar(@RequestBody Execucao execucao) {
+	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	public ResponseEntity criar(@RequestBody Execucao execucao) {
+		Robo robo = robosRepository.findById(execucao.getRobo().getId()).orElse(null);
+		if(robo==null) {
+			System.out.println("O robô de código "+execucao.getRobo().getId()+" não foi encontrado no banco de dados.");
+			return ResponseEntity.notFound().build();
+		} 			
+		execucao.setRobo(robo);
 		execucao.setRodouEm(LocalDate.now());
-		return executeRepository.save(execucao);
+		return ResponseEntity.ok(executeRepository.save(execucao));
 	}
 	
 	@PutMapping("/{executeId}")
 	public ResponseEntity<Execucao> atualizar(@RequestBody Execucao execucao, @PathVariable Long executeId) {
-
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
 		}
+		
 		execucao.setId(executeId);
 		return ResponseEntity.ok(executeRepository.save(execucao));
 	}
