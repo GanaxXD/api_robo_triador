@@ -29,6 +29,9 @@ public class Execucao {
 	@Column(name = "quantidade_processos_etiquetados")
 	private int quantidadeProcessosEtiquetados;
 	
+	@Column(name = "postgres")
+	private int quantidadeEtiquetasInseridas;
+	
 	@Column(name = "rodou_em")
 	private LocalDate rodouEm;
 	
@@ -38,6 +41,14 @@ public class Execucao {
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo;
+	
+	public int getQuantidadeEtiquetasInseridas() {
+		return quantidadeEtiquetasInseridas;
+	}
+
+	public void setQuantidadeEtiquetasInseridas(int quantidadeEtiquetasInseridas) {
+		this.quantidadeEtiquetasInseridas = quantidadeEtiquetasInseridas;
+	}
 
 	public Long getId() {
 		return id;
