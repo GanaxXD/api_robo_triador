@@ -29,7 +29,7 @@ public class Execucao {
 	@Column(name = "quantidade_processos_etiquetados")
 	private int quantidadeProcessosEtiquetados;
 	
-	@Column(name = "postgres")
+	@Column(name = "quantidade_etiquetas_inseridas")
 	private int quantidadeEtiquetasInseridas;
 	
 	@Column(name = "rodou_em")
@@ -37,6 +37,9 @@ public class Execucao {
 	
 	@Column(name = "quantidade_processos_lidos")
 	private int qtdProcessosLidos;
+	
+	@Column(name="houve_erro")
+	private boolean houveErro;
 	
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
@@ -52,6 +55,14 @@ public class Execucao {
 
 	public Long getId() {
 		return id;
+	}
+
+	public boolean isHouveErro() {
+		return houveErro;
+	}
+
+	public void setHouveErro(boolean houveErro) {
+		this.houveErro = houveErro;
 	}
 
 	public void setId(Long id) {
