@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.security;
+package main.java.com.tjma.toadalab.Security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.exception;
+package main.java.com.tjma.toadalab.Exception;
 
 public class TriadorException extends RuntimeException{
 

@@ -39,6 +39,10 @@ public class Usuario implements UserDetails{
 		this.senha = senha;
 	}
 	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", senha=" + senha + ", perfis=" + perfis + "]";
+	}
 	public List<Perfil> getPerfis() {
 		return perfis;
 	}
