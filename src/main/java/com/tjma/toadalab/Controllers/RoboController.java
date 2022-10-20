@@ -69,6 +69,23 @@ public class RoboController {
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
 	
+	@GetMapping("/buscar/processosparados/{numeroRobo}")
+	public ResponseEntity<Robo> buscarProcessosParadosNome(@PathVariable String numeroRobo) {
+		
+		//Passando acentos pela URL, o decodificador está encontrando erros na conversão (RFC 7230 e RFC 3986)
+		String roboName = "ProcessosParados"+numeroRobo;
+		
+		List<Robo> robo = roboRepository.findByNomeRoboContains(roboName);
+		
+		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
+		if(!robo.isEmpty()) {
+			//retorna o código 200 pra requisição
+			return ResponseEntity.ok(robo.get(0));
+		}
+		
+		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
+	}
+	
 	
 	@PostMapping(consumes = {"application/json", "application/text"})
 	@ResponseStatus(value = HttpStatus.CREATED)
