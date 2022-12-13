@@ -1,23 +1,16 @@
 package main.java.com.tjma.toadalab.Models;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /*
  * Classe que representa as credenciais de acesso do usuário
  */
-public class Usuario implements UserDetails{
+public class Usuario{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String senha;
-	private List<Perfil> perfis = new ArrayList<Perfil>();
 	public String getId() {
 		return id;
 	}
@@ -41,40 +34,8 @@ public class Usuario implements UserDetails{
 	
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", senha=" + senha + ", perfis=" + perfis + "]";
+		return "Usuario [id=" + id + ", senha=" + senha + "]";
 	}
-	public List<Perfil> getPerfis() {
-		return perfis;
-	}
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
-	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.perfis;
-	}
-	@Override
-	public String getPassword() {
-		return this.senha;
-	}
-	@Override
-	public String getUsername() {
-		return this.id;
-	}
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+	
+	
 }
