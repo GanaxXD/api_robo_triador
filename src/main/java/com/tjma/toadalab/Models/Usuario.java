@@ -3,6 +3,7 @@ package main.java.com.tjma.toadalab.Models;
 
 /*
  * Classe que representa as credenciais de acesso do usuário
+ * para o modelo Basic V1
  */
 public class Usuario{
 	/**
