@@ -33,6 +33,7 @@ VALUES
   ('Triador','Desembargadora Sônia Amaral','2022-09-01','ToadaRobô31'),
   ('Triador','6 Fazenda Pública1 Cargo','2022-09-13','ToadaRobô32'),
   ('Triador','2 Vara Especial da Casa da Mulher (1 Grau)','2022-11-25','ToadaRobô33'),
+  ('Triador','6 Vara Civil','2023-01-09','ToadaRobô34'),
   ('Processos Parados','1ª Câmara Cível - Des. Jorge Rachid','2021-12-06','ProcessosParados01'),
   ('Processos Parados','Desembargador Josemar Lopes Santos','2022-03-06','ProcessosParados02'),
   ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados03'),
@@ -46,4 +47,7 @@ VALUES
   ('Processos Parados','SEJUD - Secretaria da Fazenda','2022-09-29','ProcessosParados11'),
   ('Processos Parados','Desembargador Ronaldo Maciel','2022-05-10','ProcessosParados12'),
   ('Processos Parados','2 Vara Especial da Casa da Mulher (1 Grau)','2022-11-25','ProcessosParados13'),
-  ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados14');
+  ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados14'),
+  ('Processos Parados','6 Vara Cívil','2023-01-09','ProcessosParados15');
+  
+  
