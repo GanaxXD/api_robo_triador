@@ -41,10 +41,22 @@ public class Execucao {
 	@Column(name="houve_erro")
 	private boolean houveErro;
 	
+	@Column(name="hora_inicial_execucao_robo")
+	private String horaInicialExecucaoRobo;
+	
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo;
 	
+	
+	public String getHoraInicialExecucaoRobo() {
+		return horaInicialExecucaoRobo;
+	}
+
+	public void setHoraInicialExecucaoRobo(String horaInicialExecucaoRobo) {
+		this.horaInicialExecucaoRobo = horaInicialExecucaoRobo;
+	}
+
 	public int getQuantidadeEtiquetasInseridas() {
 		return quantidadeEtiquetasInseridas;
 	}
