@@ -1,1 +1,0 @@
-alter table execucao_mandados alter column tempo_distribuindo_mandados VARCHAR(11);
