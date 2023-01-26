@@ -46,7 +46,7 @@ public class Execucao {
 	
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
-	private Robo robo;
+	private Robo robo_id;
 	
 	
 	public String getHoraInicialExecucaoRobo() {
@@ -127,18 +127,18 @@ public class Execucao {
 	 */
 
 	public Robo getRobo() {
-		return robo;
+		return robo_id;
 	}
 
 	public void setRobo(Robo robo) {
-		this.robo = robo;
+		this.robo_id = robo;
 	}
 
 	@Override
 	public String toString() {
 		return "Execucao [id=" + id + ", tempoEtiquetandoProcessos=" + tempoEtiquetandoProcessos
 				+ ", quantidadeProcessosEtiquetados=" + quantidadeProcessosEtiquetados + ", rodouEm=" + rodouEm
-				+ ", robo=" + robo + "]";
+				+ ", robo=" + robo_id + "]";
 	}
 	
 	
