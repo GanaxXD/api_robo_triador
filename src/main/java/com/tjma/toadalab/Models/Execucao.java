@@ -44,11 +44,29 @@ public class Execucao {
 	@Column(name="hora_inicial_execucao_robo")
 	private String horaInicialExecucaoRobo;
 	
+	@Column(name="minutas_inseridas")
+	private int minutasInseridas;
+	
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo_id;
 	
-	
+	public int getMinutasInseridas() {
+		return minutasInseridas;
+	}
+
+	public void setMinutasInseridas(int minutasInseridas) {
+		this.minutasInseridas = minutasInseridas;
+	}
+
+	public Robo getRobo_id() {
+		return robo_id;
+	}
+
+	public void setRobo_id(Robo robo_id) {
+		this.robo_id = robo_id;
+	}
+
 	public String getHoraInicialExecucaoRobo() {
 		return horaInicialExecucaoRobo;
 	}
@@ -137,10 +155,12 @@ public class Execucao {
 	@Override
 	public String toString() {
 		return "Execucao [id=" + id + ", tempoEtiquetandoProcessos=" + tempoEtiquetandoProcessos
-				+ ", quantidadeProcessosEtiquetados=" + quantidadeProcessosEtiquetados + ", rodouEm=" + rodouEm
-				+ ", robo=" + robo_id + "]";
+				+ ", quantidadeProcessosEtiquetados=" + quantidadeProcessosEtiquetados
+				+ ", quantidadeEtiquetasInseridas=" + quantidadeEtiquetasInseridas + ", rodouEm=" + rodouEm
+				+ ", qtdProcessosLidos=" + qtdProcessosLidos + ", houveErro=" + houveErro + ", horaInicialExecucaoRobo="
+				+ horaInicialExecucaoRobo + ", minutasInseridas=" + minutasInseridas + ", robo_id=" + robo_id + "]";
 	}
 	
-	
+		
 }
 

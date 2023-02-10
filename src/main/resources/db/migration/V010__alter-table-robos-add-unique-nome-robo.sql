@@ -1,1 +1,1 @@
---alter table robos alter column nome_robo type varchar(120), add constraint uk_nome_robos unique (nome_robo);
+alter table robos alter column nome_robo type varchar(120), add constraint uk_nome_robos unique (nome_robo);
