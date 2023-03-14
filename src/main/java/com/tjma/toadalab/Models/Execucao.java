@@ -144,13 +144,6 @@ public class Execucao {
 	 * encontrouErro; }
 	 */
 
-	public Robo getRobo() {
-		return robo_id;
-	}
-
-	public void setRobo(Robo robo) {
-		this.robo_id = robo;
-	}
 
 	@Override
 	public String toString() {
