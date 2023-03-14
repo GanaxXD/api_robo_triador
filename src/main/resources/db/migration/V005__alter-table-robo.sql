@@ -1,1 +1,1 @@
-ALTER TABLE robos DROP COLUMN quantidade_vezes_rodou
+ALTER TABLE robos DROP COLUMN quantidade_vezes_rodou;
