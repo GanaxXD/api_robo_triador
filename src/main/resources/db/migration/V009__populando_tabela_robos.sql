@@ -35,6 +35,8 @@ VALUES
   ('Triador','2 Vara Especial da Casa da Mulher (1 Grau)','2022-11-25','ToadaRobô33'),
   ('Triador','6 Vara Civil','2023-01-09','ToadaRobô34'),
   ('Triador','Turma Recursal de Presidente Dutra','2023-02-03','ToadaRobô35'),
+  ('Triador','9 Vara da Fazenda Pública','2023-03-07','ToadaRobô36'),
+  ('Triador','Coordenação de Precatórios - COORPRE','2023-03-14','ToadaRobô37'),
   ('Processos Parados','1ª Câmara Cível - Des. Jorge Rachid','2021-12-06','ProcessosParados01'),
   ('Processos Parados','Desembargador Josemar Lopes Santos','2022-03-06','ProcessosParados02'),
   ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados03'),
@@ -50,6 +52,9 @@ VALUES
   ('Processos Parados','2 Vara Especial da Casa da Mulher (1 Grau)','2022-11-25','ProcessosParados13'),
   ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados14'),
   ('Processos Parados','6 Vara Cívil','2023-01-09','ProcessosParados15'),
-  ('Processos Parados','Turma Recursal de Presidente Dutra','2023-02-03','ProcessosParados16');
+  ('Processos Parados','Turma Recursal de Presidente Dutra','2023-02-03','ProcessosParados16'),
+  ('Mandados','Central de Mandados - Fórum Des Sarney','2023-03-16','Mandados01'),
+  ('Processos Parados','9 Vara da Fazenda Pública','2023-03-07','ProcessosParados17'),
+  ('Processos Parados','8 Vara da Fazenda Pública','2023-03-09','ProcessosParados18');
   
   
