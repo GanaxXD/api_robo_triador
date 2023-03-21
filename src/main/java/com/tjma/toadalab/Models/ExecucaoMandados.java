@@ -23,14 +23,13 @@ public class ExecucaoMandados {
 	 * @Column(name = "tempo_etiquetando_processos") private String
 	 * tempoEtiquetandoProcessos;
 	 */
-	@Column(name = "tempo_distribuindo_mandados")
+	@Column(name = "tempo_distribuindo_mandados", nullable = false)
 	private LocalTime tempoDistribuindoMandados;
 	
-	
-	@Column(name = "quantidade_mandados_enviados")
+	@Column(name = "quantidade_mandados_enviados", nullable = false)
 	private int quantidadeMandadosEnviados;
 	
-	@Column(name = "quantidade_mandados_enviados_analise")
+	@Column(name = "quantidade_mandados_enviados_analise", nullable = false)
 	private int quantidadeMandadosEnviadosParaAnalise;
 	
 	@Column(name = "rodou_em")
@@ -39,13 +38,12 @@ public class ExecucaoMandados {
 	@Column(name="houve_erro")
 	private boolean houveErro;
 	
-	@Column(name="hora_inicial_execucao_robo")
+	@Column(name="hora_inicial_execucao_robo", nullable = false)
 	private String horaInicialExecucaoRobo;
 	
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo;
-	
 	
 	public String getHoraInicialExecucaoRobo() {
 		return horaInicialExecucaoRobo;
@@ -79,7 +77,6 @@ public class ExecucaoMandados {
 		this.horaInicialExecucaoRobo = horaInicialExecucaoRobo;
 	}
 
-
 	public Long getId() {
 		return id;
 	}
@@ -96,7 +93,6 @@ public class ExecucaoMandados {
 		this.id = id;
 	}
 
-	
 	/*
 	 * public String getTempoEtiquetandoProcessos() { return
 	 * tempoEtiquetandoProcessos; }
@@ -136,7 +132,13 @@ public class ExecucaoMandados {
 				+ ", horaInicialExecucaoRobo=" + horaInicialExecucaoRobo + ", robo=" + robo + "]";
 	}
 
-	
+	public boolean validarDadosDa(ExecucaoMandados ex) {
+		if(ex == null || ex.getHoraInicialExecucaoRobo() == null ||  ex.getHoraInicialExecucaoRobo().isBlank() || ex.getHoraInicialExecucaoRobo().isEmpty() ||
+		   ex.getTempoDistribuindoMandados() == null ) {
+			return false;
+		}
+		return true;
+	}
 	
 }
 

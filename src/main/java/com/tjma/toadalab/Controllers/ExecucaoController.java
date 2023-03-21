@@ -85,10 +85,8 @@ public class ExecucaoController {
 		} 			
 		execucao.setRobo_id(robo);
 		execucao.setRodouEm(LocalDate.now());
-		System.out.println("\n\n\n--------------------------\n\n\n"
-				+execucao
-				+ "\n\n\n-----------------------------------\n\n\n");
-		return ResponseEntity.ok(executeRepository.save(execucao));
+		Execucao ex = execucao.validarDadosDa(execucao) ? executeRepository.save(execucao) : null;
+		return  ex==null ?  ResponseEntity.badRequest().build() :  ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("/mandados")
@@ -101,7 +99,8 @@ public class ExecucaoController {
 		} 			
 		execucao.setRobo(robo);
 		execucao.setRodouEm(LocalDate.now());
-		return ResponseEntity.ok(executeMandRepository.save(execucao));
+		ExecucaoMandados ex = execucao.validarDadosDa(execucao) ? executeMandRepository.save(execucao) : null;
+		return ex == null ? ResponseEntity.badRequest().build() :ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{executeId}")
@@ -142,5 +141,11 @@ public class ExecucaoController {
 		//clientInterface.deletar(clientInterface.findById(clientId).get());
 		executeMandRepository.delete(executeMandRepository.findById(executeId).get());
 		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	public String toString() {
+		return "ExecucaoController [executeRepository=" + executeRepository + ", executeMandRepository="
+				+ executeMandRepository + ", robosRepository=" + robosRepository + "]";
 	}
 }

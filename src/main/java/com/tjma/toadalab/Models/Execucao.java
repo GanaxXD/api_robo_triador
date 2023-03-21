@@ -26,7 +26,7 @@ public class Execucao {
 	@Column(name = "tempo_etiquetando_processos")
 	private LocalTime tempoEtiquetandoProcessos;
 	
-	@Column(name = "quantidade_processos_etiquetados")
+	@Column(name = "quantidade_processos_etiquetados", nullable = false)
 	private int quantidadeProcessosEtiquetados;
 	
 	@Column(name = "quantidade_etiquetas_inseridas")
@@ -41,7 +41,7 @@ public class Execucao {
 	@Column(name="houve_erro")
 	private boolean houveErro;
 	
-	@Column(name="hora_inicial_execucao_robo")
+	@Column(name="hora_inicial_execucao_robo", nullable = false)
 	private String horaInicialExecucaoRobo;
 	
 	@Column(name="minutas_inseridas")
@@ -143,15 +143,13 @@ public class Execucao {
 	 * public void setEncontrouErro(boolean encontrouErro) { this.encontrouErro =
 	 * encontrouErro; }
 	 */
-
-
-	@Override
-	public String toString() {
-		return "Execucao [id=" + id + ", tempoEtiquetandoProcessos=" + tempoEtiquetandoProcessos
-				+ ", quantidadeProcessosEtiquetados=" + quantidadeProcessosEtiquetados
-				+ ", quantidadeEtiquetasInseridas=" + quantidadeEtiquetasInseridas + ", rodouEm=" + rodouEm
-				+ ", qtdProcessosLidos=" + qtdProcessosLidos + ", houveErro=" + houveErro + ", horaInicialExecucaoRobo="
-				+ horaInicialExecucaoRobo + ", minutasInseridas=" + minutasInseridas + ", robo_id=" + robo_id + "]";
+	
+	public boolean validarDadosDa(Execucao ex) {
+		if(ex == null || ex.getRobo_id().getId() == null ||  
+		   ex.getHoraInicialExecucaoRobo() == null || ex.getHoraInicialExecucaoRobo().isBlank() || ex.getHoraInicialExecucaoRobo().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 	
 		
