@@ -37,6 +37,9 @@ public class Usuario{
 	public String toString() {
 		return "Usuario [id=" + id + ", senha=" + senha + "]";
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	
 }

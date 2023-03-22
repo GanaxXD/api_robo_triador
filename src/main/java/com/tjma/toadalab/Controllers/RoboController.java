@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.java.com.tjma.toadalab.Models.Robo;
-import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
 
 @RestController
@@ -31,8 +30,6 @@ public class RoboController {
 	@Autowired
 	private RobosRepository roboRepository;
 	
-	@Autowired
-	private ExecucaoRepository execRepository;
 	
 	@GetMapping()
 	public List<Robo> listar(){
