@@ -3,6 +3,7 @@ package main.java.com.tjma.toadalab.Controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class ExecucaoDadosMandadosController {
 		return repositorio.findAll();
 	}
 	
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<DadosEnvioMandados> buscar(@PathVariable Long id){
 		Optional<DadosEnvioMandados> dados = repositorio.findById(id);
 		
@@ -64,5 +65,12 @@ public class ExecucaoDadosMandadosController {
 		return ResponseEntity.ok(repositorio.save(dados));
 	}
 	
-	//@DeleteMapping
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Long id){
+		if(repositorio.existsById(id)) {
+			repositorio.delete(repositorio.findById(id).get());
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
 }
