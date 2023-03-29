@@ -14,11 +14,10 @@ public class RoboTriadorApiApplication {
 		System.out.println("Recuperando dados dos PIDs em execução...");
 		String processName =
 	            java.lang.management.ManagementFactory.getRuntimeMXBean().getName();
-	    System.out.println(processName);
 	    Long l = Long.parseLong(processName.split("@")[0]);
 	   	System.out.println(l);
 		
 		SpringApplication.run(RoboTriadorApiApplication.class, args);
-	}
+	} 
 
 }
