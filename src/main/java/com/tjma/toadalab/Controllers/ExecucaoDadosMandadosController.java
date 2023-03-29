@@ -29,6 +29,8 @@ public class ExecucaoDadosMandadosController {
 	@Autowired
 	private DadosEnvioMandadosRepository repositorio;
 	
+	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
+	
 	@GetMapping()
 	public List<DadosEnvioMandados> listar(){
 		return repositorio.findAll();
@@ -64,6 +66,12 @@ public class ExecucaoDadosMandadosController {
 		return ResponseEntity.ok(repositorio.save(dados));
 	}
 	
+	@PutMapping("/")
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ResponseEntity<String> atualizar(){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagem);
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id){
 		if(repositorio.existsById(id)) {
@@ -71,5 +79,11 @@ public class ExecucaoDadosMandadosController {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@DeleteMapping("/")
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ResponseEntity<String> deletar(){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagem);
 	}
 }

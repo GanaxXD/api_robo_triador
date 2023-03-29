@@ -142,6 +142,7 @@ public class ExecucaoController {
 		executeMandRepository.delete(executeMandRepository.findById(executeId).get());
 		return ResponseEntity.noContent().build();
 	}
+	
 
 	@Override
 	public String toString() {
