@@ -17,10 +17,7 @@ public class ExecucaoMandados {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	/*
-	 * @Column(name = "tempo_etiquetando_processos") private String
-	 * tempoEtiquetandoProcessos;
-	 */
+	
 	@Column(name = "tempo_distribuindo_mandados", nullable = false)
 	private LocalTime tempoDistribuindoMandados;
 	

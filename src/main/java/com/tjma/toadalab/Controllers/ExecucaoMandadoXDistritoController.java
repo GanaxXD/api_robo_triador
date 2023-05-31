@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.DadosEnvioMandados;
-import main.java.com.tjma.toadalab.Repositories.DadosEnvioMandadosRepository;
+import main.java.com.tjma.toadalab.Models.MandadoXDistrito;
+import main.java.com.tjma.toadalab.Repositories.MandadoXDistritoRepository;
 
 @RestController
 @RequestMapping(value="/dadosmandados", produces="application/json")
 @CrossOrigin(origins = "*")
-public class ExecucaoDadosMandadosController {
+public class ExecucaoMandadoXDistritoController {
 
 	@Autowired
-	private DadosEnvioMandadosRepository repositorio;
+	private MandadoXDistritoRepository repositorio;
 	
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
 	
 	@GetMapping()
-	public List<DadosEnvioMandados> listar(){
+	public List<MandadoXDistrito> listar(){
 		return repositorio.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<DadosEnvioMandados> buscar(@PathVariable Long id){
-		Optional<DadosEnvioMandados> dados = repositorio.findById(id);
+	public ResponseEntity<MandadoXDistrito> buscar(@PathVariable Long id){
+		Optional<MandadoXDistrito> dados = repositorio.findById(id);
 		
 		if(dados.isEmpty()) {
 			System.out.println("Não achei nenhum dado com o id informado!");
@@ -50,14 +50,14 @@ public class ExecucaoDadosMandadosController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public ResponseEntity<DadosEnvioMandados> criar(@RequestBody @Validated DadosEnvioMandados dados){
-		DadosEnvioMandados d = repositorio.save(dados);
+	public ResponseEntity<MandadoXDistrito> criar(@RequestBody @Validated MandadoXDistrito dados){
+		MandadoXDistrito d = repositorio.save(dados);
 		return d.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public ResponseEntity<DadosEnvioMandados> atualizar(@RequestBody DadosEnvioMandados dados, @PathVariable Long id){
+	public ResponseEntity<MandadoXDistrito> atualizar(@RequestBody MandadoXDistrito dados, @PathVariable Long id){
 		if(!repositorio.existsById(id)) {
 			System.out.println("Dados de Execução do Robô de Mandados não encontrado no banco de dados para o id passado.");
 			return ResponseEntity.notFound().build();
