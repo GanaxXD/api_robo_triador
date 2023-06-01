@@ -1,1 +1,0 @@
-ALTER TABLE robos DROP COLUMN quantidade_vezes_rodou;

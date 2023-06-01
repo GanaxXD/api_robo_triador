@@ -36,7 +36,7 @@ public class Execucao {
 	@Column(name = "quantidade_processos_lidos")
 	private int qtdProcessosLidos;
 	
-	@Column(name="houve_erro")
+	@Column(name="encontrou_erro")
 	private boolean houveErro;
 	
 	@Column(name="hora_inicial_execucao_robo", nullable = false)

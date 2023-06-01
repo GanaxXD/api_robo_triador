@@ -1,1 +1,0 @@
-ALTER TABLE execucoes ADD COLUMN hora_inicial_execucao_robo VARCHAR(11);

@@ -3,5 +3,7 @@ create table if not exists robos(
 	tipo VARCHAR(100) NOT NULL,
 	local_implantado VARCHAR(250) NOT NULL,
 	instalado_em DATE DEFAULT CURRENT_DATE,
-	quantidade_vezes_rodou INT
+	nome_robo varchar(120) unique,
+	
+	constraint uk_nome_robos unique (nome_robo)
 );

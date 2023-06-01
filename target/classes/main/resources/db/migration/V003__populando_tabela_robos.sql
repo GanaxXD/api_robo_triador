@@ -37,6 +37,8 @@ VALUES
   ('Triador','Turma Recursal de Presidente Dutra','2023-02-03','ToadaRobô35'),
   ('Triador','9 Vara da Fazenda Pública','2023-03-07','ToadaRobô36'),
   ('Triador','Coordenação de Precatórios - COORPRE','2023-03-14','ToadaRobô37'),
+  ('Triador','7º Juizado Especial Cível e das Relações de Consumo ','2023-05-11','ToadaRobô38'),
+  ('Triador','Gabinete Desembargador Ronaldo','2023-05-12','ToadaRobô39'),
   ('Processos Parados','1ª Câmara Cível - Des. Jorge Rachid','2021-12-06','ProcessosParados01'),
   ('Processos Parados','Desembargador Josemar Lopes Santos','2022-03-06','ProcessosParados02'),
   ('Processos Parados','Desembargadora Francisca Galiza','2022-03-06','ProcessosParados03'),

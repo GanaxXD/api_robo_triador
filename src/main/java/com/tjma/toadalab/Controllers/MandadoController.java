@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.MandadoXDistrito;
-import main.java.com.tjma.toadalab.Repositories.MandadoXDistritoRepository;
+import main.java.com.tjma.toadalab.Models.Mandado;
+import main.java.com.tjma.toadalab.Repositories.MandadoRepository;
 
 @RestController
 @RequestMapping(value="/dadosmandados", produces="application/json")
 @CrossOrigin(origins = "*")
-public class ExecucaoMandadoXDistritoController {
+public class MandadoController {
 
 	@Autowired
-	private MandadoXDistritoRepository repositorio;
+	private MandadoRepository repositorio;
 	
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
 	
 	@GetMapping()
-	public List<MandadoXDistrito> listar(){
+	public List<Mandado> listar(){
 		return repositorio.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<MandadoXDistrito> buscar(@PathVariable Long id){
-		Optional<MandadoXDistrito> dados = repositorio.findById(id);
+	public ResponseEntity<Mandado> buscar(@PathVariable Long id){
+		Optional<Mandado> dados = repositorio.findById(id);
 		
 		if(dados.isEmpty()) {
 			System.out.println("Não achei nenhum dado com o id informado!");
@@ -50,14 +50,21 @@ public class ExecucaoMandadoXDistritoController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public ResponseEntity<MandadoXDistrito> criar(@RequestBody @Validated MandadoXDistrito dados){
-		MandadoXDistrito d = repositorio.save(dados);
+	public ResponseEntity<Mandado> criar(@RequestBody @Validated Mandado dados){
+		Mandado d = repositorio.save(dados);
 		return d.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
+	}
+	
+	@PostMapping("/emlote")
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public ResponseEntity<List<Mandado>> criarListaDeMandadosEnviados(@RequestBody @Validated List<Mandado> dados){
+		List<Mandado> d = repositorio.saveAll(dados);
+		return (d.equals(null)||d.isEmpty()) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public ResponseEntity<MandadoXDistrito> atualizar(@RequestBody MandadoXDistrito dados, @PathVariable Long id){
+	public ResponseEntity<Mandado> atualizar(@RequestBody Mandado dados, @PathVariable Long id){
 		if(!repositorio.existsById(id)) {
 			System.out.println("Dados de Execução do Robô de Mandados não encontrado no banco de dados para o id passado.");
 			return ResponseEntity.notFound().build();

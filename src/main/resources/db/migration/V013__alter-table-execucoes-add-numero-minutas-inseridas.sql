@@ -1,1 +1,0 @@
-ALTER TABLE execucoes ADD COLUMN minutas_inseridas INTEGER DEFAULT 0;
