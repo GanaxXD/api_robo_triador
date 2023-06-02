@@ -11,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 
-@Data
 @Entity(name = "execucoes")
 public class Execucao {
 	@Id
@@ -38,7 +36,7 @@ public class Execucao {
 	@Column(name = "quantidade_processos_lidos")
 	private int qtdProcessosLidos;
 	
-	@Column(name="houve_erro")
+	@Column(name="encontrou_erro")
 	private boolean houveErro;
 	
 	@Column(name="hora_inicial_execucao_robo", nullable = false)

@@ -1,1 +1,0 @@
-ALTER TABLE  execucoes ADD COLUMN houve_erro boolean DEFAULT FALSE;

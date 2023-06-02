@@ -11,18 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 
-@Data
 @Entity(name = "execucao_mandados")
 public class ExecucaoMandados {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	/*
-	 * @Column(name = "tempo_etiquetando_processos") private String
-	 * tempoEtiquetandoProcessos;
-	 */
+	
 	@Column(name = "tempo_distribuindo_mandados", nullable = false)
 	private LocalTime tempoDistribuindoMandados;
 	

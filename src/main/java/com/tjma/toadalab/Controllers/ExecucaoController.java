@@ -39,7 +39,7 @@ public class ExecucaoController {
 	@Autowired
 	private RobosRepository robosRepository;
 	
-	@GetMapping()
+	@GetMapping
 	public List<Execucao> listar(){
 		return executeRepository.findAll();
 	}
@@ -142,6 +142,7 @@ public class ExecucaoController {
 		executeMandRepository.delete(executeMandRepository.findById(executeId).get());
 		return ResponseEntity.noContent().build();
 	}
+	
 
 	@Override
 	public String toString() {
