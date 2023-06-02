@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-@Entity
+@Entity(name = "distritos")
 public class Distrito {
 	
 	@Id

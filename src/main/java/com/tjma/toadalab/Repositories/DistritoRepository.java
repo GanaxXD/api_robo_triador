@@ -7,5 +7,7 @@ import main.java.com.tjma.toadalab.Models.Distrito;
 
 @Repository
 public interface DistritoRepository extends JpaRepository<Distrito, Long>{
-
+	Distrito findByCodNormal(String codNormal);
+	Distrito findByCodUrgente(String codUrgente);
+	Distrito findByNomeDistrito(String nomeDistrito);
 }

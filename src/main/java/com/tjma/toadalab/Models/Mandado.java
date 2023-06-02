@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "mandados")
 public class Mandado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +61,24 @@ public class Mandado {
 	public String toString() {
 		return "Mandado [id=" + id + ", numeroProcesso=" + numeroProcesso + ", codigoMandado=" + codigoMandado
 				+ "]";
+	}
+
+	
+	
+	public Distrito getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
+	}
+
+	public Date getDataDistribuicao() {
+		return dataDistribuicao;
+	}
+
+	public void setDataDistribuicao(Date dataDistribuicao) {
+		this.dataDistribuicao = dataDistribuicao;
 	}
 
 	public Mandado() {

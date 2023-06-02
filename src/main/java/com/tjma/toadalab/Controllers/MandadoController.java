@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.java.com.tjma.toadalab.Models.Distrito;
 import main.java.com.tjma.toadalab.Models.Mandado;
+import main.java.com.tjma.toadalab.Repositories.DistritoRepository;
 import main.java.com.tjma.toadalab.Repositories.MandadoRepository;
 
 @RestController
@@ -28,6 +30,9 @@ public class MandadoController {
 
 	@Autowired
 	private MandadoRepository repositorio;
+	
+	@Autowired
+	private DistritoRepository disRepository;
 	
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
 	
@@ -51,8 +56,13 @@ public class MandadoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public ResponseEntity<Mandado> criar(@RequestBody @Validated Mandado dados){
-		Mandado d = repositorio.save(dados);
-		return d.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
+		Distrito distrito = disRepository.findById(dados.getDistrito().getId()).orElse(null);
+		if(distrito == null) {
+			System.out.println("Distrito não encontrado!");
+			return ResponseEntity.notFound().build();
+		}
+		Mandado m = repositorio.save(dados);
+		return m.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
 	
 	@PostMapping("/emlote")
