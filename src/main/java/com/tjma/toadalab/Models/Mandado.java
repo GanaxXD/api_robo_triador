@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 @Entity(name = "mandados")
 public class Mandado {
 	@Id

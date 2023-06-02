@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import main.java.com.tjma.toadalab.Models.Robo;
 import main.java.com.tjma.toadalab.Repositories.RobosRepository;
+import main.java.com.tjma.toadalab.Services.Validador;
 
 @RestController
 @RequestMapping(value="/robos", produces = "application/json")
@@ -30,6 +31,7 @@ public class RoboController {
 	@Autowired
 	private RobosRepository roboRepository;
 	
+	private Validador validador = new Validador();
 	
 	@GetMapping()
 	public List<Robo> listar(){
@@ -57,9 +59,7 @@ public class RoboController {
 		
 		List<Robo> robo = roboRepository.findByNomeRoboContains(roboName);
 		
-		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
 		if(!robo.isEmpty()) {
-			//retorna o código 200 pra requisição
 			return ResponseEntity.ok(robo.get(0));
 		}
 		
@@ -85,14 +85,13 @@ public class RoboController {
 	
 	
 	@PostMapping(consumes = {"application/json", "application/text"})
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public Robo criar(@RequestBody Robo robo) {
-		if(robo.equals(null)) {
+	public ResponseEntity<Robo> criar(@RequestBody Robo robo) {
+		if(robo.equals(null) || roboRepository.findByNomeRobo(robo.getNomeRobo()).isPresent() == true) {
 			ResponseEntity.badRequest().build();
 			return null;
 		}
 		robo.setInstaladoEm(LocalDate.now());
-		return roboRepository.save(robo);
+		return ResponseEntity.ok( roboRepository.save(robo) );
 	}
 	
 	@PutMapping("/{roboId}")

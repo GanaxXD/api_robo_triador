@@ -22,7 +22,7 @@ public class Robo {
 	@Column(name = "instalado_em")
 	private LocalDate instaladoEm;
 
-	@Column(name = "nome_robo")
+	@Column(name = "nome_robo", unique = true)
 	private String nomeRobo;
 
 	@Override
