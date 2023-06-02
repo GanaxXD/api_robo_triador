@@ -86,9 +86,8 @@ public class RoboController {
 	
 	@PostMapping(consumes = {"application/json", "application/text"})
 	public ResponseEntity<Robo> criar(@RequestBody Robo robo) {
-		if(robo.equals(null) || roboRepository.findByNomeRobo(robo.getNomeRobo()).isPresent() == true) {
-			ResponseEntity.badRequest().build();
-			return null;
+		if(robo==null || roboRepository.findByNomeRobo(robo.getNomeRobo()).isPresent() == true) {
+			return ResponseEntity.badRequest().build();
 		}
 		robo.setInstaladoEm(LocalDate.now());
 		return ResponseEntity.ok( roboRepository.save(robo) );

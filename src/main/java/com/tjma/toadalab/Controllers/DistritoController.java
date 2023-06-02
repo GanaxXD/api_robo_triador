@@ -55,10 +55,11 @@ public class DistritoController {
 			System.out.println("O distrito não é válido!");
 			return ResponseEntity.badRequest().build();
 		} 
-		if(validador.validarDistrito(distrito) == false) {
-			System.out.println("Distrito com código normal, urgente ou nome já existente no banco.");
-			return ResponseEntity.badRequest().build();
-		}
+		/*
+		 * if(validador.validarDistrito(distrito) == false) { System.out.
+		 * println("Distrito com código normal, urgente ou nome já existente no banco."
+		 * ); return ResponseEntity.badRequest().build(); }
+		 */
 		executeRepository.save(distrito);
 		return  ResponseEntity.ok(distrito);
 	}

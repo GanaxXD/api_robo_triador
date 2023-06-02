@@ -1,6 +1,6 @@
 create table if not exists execucoes(
 	id SERIAL NOT NULL PRIMARY KEY,
-	tempo_etiquetando_processos DATE NOT NULL,
+	tempo_etiquetando_processos varchar NOT NULL,
 	hora_inicial_execucao_robo varchar(11) not null,
 	quantidade_processos_etiquetados INT NOT NULL,
 	quantidade_processos_lidos INTEGER DEFAULT 0,
