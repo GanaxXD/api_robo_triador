@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,16 +42,19 @@ public class ExecucaoController {
 	private RobosRepository robosRepository;
 	
 	@GetMapping
+	@Cacheable(value="lista_execucoes")//dando um apelido para esse cache
 	public List<Execucao> listar(){
 		return executeRepository.findAll();
 	}
 	
 	@GetMapping("/mandados")
+	@Cacheable(value="lista_mandados")//dando um apelido para esse cache
 	public List<ExecucaoMandados> listarMandados(){
 		return executeMandRepository.findAll();
 	}
 	
 	@GetMapping("/{executeId}")
+	@Cacheable(value="execucao_unica")//dando um apelido para esse cache
 	public ResponseEntity<Execucao> buscar(@PathVariable Long executeId) {
 		Optional<Execucao> execucao = executeRepository.findById(executeId);
 		
@@ -63,6 +68,7 @@ public class ExecucaoController {
 	}
 	
 	@GetMapping("/mandados/{executeId}")
+	@Cacheable(value="mandado_unico")//dando um apelido para esse cache
 	public ResponseEntity<ExecucaoMandados> buscarMandado(@PathVariable Long executeId) {
 		Optional<ExecucaoMandados> execucao = executeMandRepository.findById(executeId);
 		
@@ -77,6 +83,7 @@ public class ExecucaoController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	@CacheEvict(value="[lista_execucoes, execucao_unica]", allEntries = true)
 	public ResponseEntity<Execucao> criar(@RequestBody Execucao execucao) {
 		Robo robo = robosRepository.findById(execucao.getRobo_id().getId()).orElse(null);
 		if(robo==null) {
@@ -91,6 +98,7 @@ public class ExecucaoController {
 	
 	@PostMapping("/mandados")
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	@CacheEvict(value="[lista_mandados, mandado_unico]", allEntries = true)
 	public ResponseEntity<ExecucaoMandados> criarMandado(@RequestBody ExecucaoMandados execucao) {
 		Robo robo = robosRepository.findById(execucao.getRobo().getId()).get();
 		if(robo==null) {
@@ -104,6 +112,7 @@ public class ExecucaoController {
 	}
 	
 	@PutMapping("/{executeId}")
+	@CacheEvict(value="[lista_execucoes, execucao_unica]", allEntries = true)
 	public ResponseEntity<Execucao> atualizar(@RequestBody Execucao execucao, @PathVariable Long executeId) {
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
@@ -114,6 +123,7 @@ public class ExecucaoController {
 	}
 	
 	@PutMapping("/mandados/{executeId}")
+	@CacheEvict(value="[lista_mandados, mandado_unico]", allEntries = true)
 	public ResponseEntity<ExecucaoMandados> atualizarMandado(@RequestBody ExecucaoMandados execucao, @PathVariable Long executeId) {
 		if(!executeMandRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
@@ -124,6 +134,7 @@ public class ExecucaoController {
 	}
 	
 	@DeleteMapping("/{executeId}")
+	@CacheEvict(value="[lista_execucoes, execucao_unica]", allEntries = true)
 	public ResponseEntity<Void> deletar (@PathVariable Long executeId){
 		if(!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
@@ -134,6 +145,7 @@ public class ExecucaoController {
 	}
 	
 	@DeleteMapping("/mandados/{executeId}")
+	@CacheEvict(value="[lista_mandados, mandado_unico]", allEntries = true)
 	public ResponseEntity<Void> deletarMandado (@PathVariable Long executeId){
 		if(!executeMandRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();

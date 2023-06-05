@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,11 +33,13 @@ public class DistritoController {
 	private Validador validador = new Validador();
 
 	@GetMapping
+	@Cacheable(value="lista_distritos")//dando um apelido para esse cache
 	public List<Distrito> listar(){
 		return executeRepository.findAll();
 	}
 	
 	@GetMapping("/{executeId}")
+	@Cacheable(value="distrito_unico")//dando um apelido para esse cache
 	public ResponseEntity<Distrito> buscar(@PathVariable Long executeId) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
 		
@@ -50,6 +54,7 @@ public class DistritoController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<Distrito> criar(@RequestBody Distrito distrito) {
 		if(distrito==null) {
 			System.out.println("O distrito não é válido!");
@@ -65,6 +70,7 @@ public class DistritoController {
 	}
 	
 	@PutMapping("/{executeId}")
+	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<Distrito> atualizar(@PathVariable Long executeId, @RequestBody Distrito distrito) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
 		
@@ -77,6 +83,7 @@ public class DistritoController {
 	}
 	
 	@DeleteMapping("/{executeId}")
+	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<Distrito> deletar(@PathVariable Long executeId) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
 		if(distritoDoBanco.isPresent()) {

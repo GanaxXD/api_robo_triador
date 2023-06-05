@@ -1,11 +1,14 @@
 package main.java.com.tjma.toadalab.Controllers;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.java.com.tjma.toadalab.Models.Robo;
@@ -31,14 +33,19 @@ public class RoboController {
 	@Autowired
 	private RobosRepository roboRepository;
 	
-	private Validador validador = new Validador();
+	@Autowired
+	private CacheManager cacheManager;
 	
+	private Validador validador = new Validador();
+		
 	@GetMapping()
+	@Cacheable(value="lista_robos")//dando um apelido para esse cache
 	public List<Robo> listar(){
 		return roboRepository.findAll();
 	}
 	
 	@GetMapping("/{roboId}")
+	@Cacheable(value="robo_unico_pelo_id")
 	public ResponseEntity<Robo> buscarpeloId(@PathVariable Long roboId) {
 		Optional<Robo> robo = roboRepository.findById(roboId);
 		
@@ -52,6 +59,7 @@ public class RoboController {
 	}
 	
 	@GetMapping("/buscar/{numeroRobo}")
+	@Cacheable(value="robo_unico_pelo_nome")
 	public ResponseEntity<Robo> buscarpeloNome(@PathVariable String numeroRobo) {
 		
 		//Passando acentos pela URL, o decodificador está encontrando erros na conversão (RFC 7230 e RFC 3986)
@@ -67,6 +75,7 @@ public class RoboController {
 	}
 	
 	@GetMapping("/buscar/processosparados/{numeroRobo}")
+	@Cacheable(value="robo_processos_parados")
 	public ResponseEntity<Robo> buscarProcessosParadosNome(@PathVariable String numeroRobo) {
 		
 		//Passando acentos pela URL, o decodificador está encontrando erros na conversão (RFC 7230 e RFC 3986)
@@ -85,15 +94,19 @@ public class RoboController {
 	
 	
 	@PostMapping(consumes = {"application/json", "application/text"})
+	@CacheEvict(value="lista_robos", allEntries = true)
 	public ResponseEntity<Robo> criar(@RequestBody Robo robo) {
 		if(robo==null || roboRepository.findByNomeRobo(robo.getNomeRobo()).isPresent() == true) {
 			return ResponseEntity.badRequest().build();
 		}
 		robo.setInstaladoEm(LocalDate.now());
-		return ResponseEntity.ok( roboRepository.save(robo) );
+		Robo r = roboRepository.save(robo);
+		cacheManager.getCache("robo_processos_parados").clear();
+		return ResponseEntity.ok( r );
 	}
 	
 	@PutMapping("/{roboId}")
+	@CacheEvict(value= "robo_unico_pelo_id", allEntries = true)
 	public ResponseEntity<Robo> atualizar (@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
 
 		if(!roboRepository.existsById(roboId)) {
@@ -104,16 +117,21 @@ public class RoboController {
 			robo.setInstaladoEm(r.getInstaladoEm());
 		}
 		robo.setId(roboId);
-		return ResponseEntity.ok(roboRepository.save(robo));
+		roboRepository.save(robo);
+		cacheManager.getCache("lista_robos").clear();
+		cacheManager.getCache("robo_processos_parados").clear();
+		return ResponseEntity.ok(robo);
 	}
 	
 	@DeleteMapping("/{roboId}")
+	@CacheEvict(value="lista_robos", allEntries = true)
 	public ResponseEntity<Void> deletar (@PathVariable Long roboId){
 		if(!roboRepository.existsById(roboId)) {
 			return ResponseEntity.notFound().build();
 		} 
 		//clientInterface.deletar(clientInterface.findById(clientId).get());
 		roboRepository.delete(roboRepository.findById(roboId).get());
+		cacheManager.getCache("robo_processos_parados").clear();
 		return ResponseEntity.noContent().build();
 	}
 }
