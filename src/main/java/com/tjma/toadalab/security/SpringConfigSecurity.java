@@ -1,5 +1,8 @@
 package main.java.com.tjma.toadalab.security;
 
-public class SpringConfigSecurity {
+import org.springframework.stereotype.Service;
 
+@Service
+public class SpringConfigSecurity {
+    public SpringConfigSecurity() {}
 }
