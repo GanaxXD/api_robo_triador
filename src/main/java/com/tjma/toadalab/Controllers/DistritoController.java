@@ -55,10 +55,17 @@ public class DistritoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
-	public ResponseEntity<Distrito> criar(@RequestBody Distrito distrito) {
-		if(distrito==null) {
+	public ResponseEntity<String> criar(@RequestBody Distrito distrito) {
+		Distrito distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodNormal()).orElse(null);
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+distritoDoBanco);
+		if(distritoDoBanco!=null) {				
 			System.out.println("O distrito não é válido!");
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body("{Distrito com código Normal já cadastrado no banco: "+distritoDoBanco.toString()+"}");
+		} 
+		distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodUrgente()).orElse(null);
+		if(distritoDoBanco!=null) {				
+			System.out.println("O distrito não é válido!");
+			return ResponseEntity.badRequest().body("{Distrito com código Urgênte já cadastrado no banco: "+distritoDoBanco.toString()+"}");
 		} 
 		/*
 		 * if(validador.validarDistrito(distrito) == false) { System.out.
@@ -66,7 +73,7 @@ public class DistritoController {
 		 * ); return ResponseEntity.badRequest().build(); }
 		 */
 		executeRepository.save(distrito);
-		return  ResponseEntity.ok(distrito);
+		return  ResponseEntity.ok(distrito.toString());
 	}
 	
 	@PutMapping("/{executeId}")

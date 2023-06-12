@@ -56,7 +56,9 @@ public class Distrito {
 	}
 	@Override
 	public String toString() {
-		return "Distrito [nomeDistrito=" + nomeDistrito + ", id=" + id + "]";
+		return "Distrito [id=" + id + ", nomeDistrito=" + nomeDistrito + ", codNormal=" + codNormal + ", codUrgente="
+				+ codUrgente + ", mandados=" + mandados + "]";
 	}
+	
 	
 }
