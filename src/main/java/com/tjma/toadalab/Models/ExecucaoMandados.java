@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Models;
+package com.tjma.toadalab.Models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,29 +17,29 @@ public class ExecucaoMandados {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "tempo_distribuindo_mandados", nullable = false)
 	private LocalTime tempoDistribuindoMandados;
-	
+
 	@Column(name = "quantidade_mandados_enviados", nullable = false)
 	private int quantidadeMandadosEnviados;
-	
+
 	@Column(name = "quantidade_mandados_enviados_analise", nullable = false)
 	private int quantidadeMandadosEnviadosParaAnalise;
-	
+
 	@Column(name = "rodou_em")
 	private LocalDate rodouEm;
-		
+
 	@Column(name="houve_erro")
 	private boolean houveErro;
-	
+
 	@Column(name="hora_inicial_execucao_robo", nullable = false)
 	private String horaInicialExecucaoRobo;
-	
+
 	@ManyToOne
 	@JoinColumn(name="robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo;
-	
+
 	public String getHoraInicialExecucaoRobo() {
 		return horaInicialExecucaoRobo;
 	}
@@ -91,11 +91,11 @@ public class ExecucaoMandados {
 	/*
 	 * public String getTempoEtiquetandoProcessos() { return
 	 * tempoEtiquetandoProcessos; }
-	 * 
+	 *
 	 * public void setTempoEtiquetandoProcessos(String tempoEtiquetandoProcessos) {
 	 * this.tempoEtiquetandoProcessos = tempoEtiquetandoProcessos; }
 	 */
-	
+
 	public LocalDate getRodouEm() {
 		return rodouEm;
 	}
@@ -105,7 +105,7 @@ public class ExecucaoMandados {
 	}
 	/*
 	 * public boolean isEncontrouErro() { return encontrouErro; }
-	 * 
+	 *
 	 * public void setEncontrouErro(boolean encontrouErro) { this.encontrouErro =
 	 * encontrouErro; }
 	 */
@@ -134,6 +134,6 @@ public class ExecucaoMandados {
 		}
 		return true;
 	}
-	
+
 }
 

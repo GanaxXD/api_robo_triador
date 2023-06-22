@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.ModelMapper;
+package com.tjma.toadalab.ModelMapper;
 
 
 public class RoboMapper {

@@ -1,10 +1,9 @@
-package main.java.com.tjma.toadalab.Controllers;
+package com.tjma.toadalab.Controllers;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Cache;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -21,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.Distrito;
-import main.java.com.tjma.toadalab.Models.Mandado;
-import main.java.com.tjma.toadalab.Repositories.DistritoRepository;
-import main.java.com.tjma.toadalab.Repositories.MandadoRepository;
+import com.tjma.toadalab.Models.Distrito;
+import com.tjma.toadalab.Models.Mandado;
+import com.tjma.toadalab.Repositories.DistritoRepository;
+import com.tjma.toadalab.Repositories.MandadoRepository;
 
 @RestController
 @RequestMapping(value="/dadosmandados", produces="application/json")
@@ -33,31 +32,31 @@ public class MandadoController {
 
 	@Autowired
 	private MandadoRepository repositorio;
-	
+
 	@Autowired
 	private DistritoRepository disRepository;
-	
+
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
-	
+
 	@GetMapping()
 	@Cacheable(value="lista_dados_mandados")//dando um apelido para esse cache
 	public List<Mandado> listar(){
 		return repositorio.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	@Cacheable(value="dados_mandado")//dando um apelido para esse cache
 	public ResponseEntity<Mandado> buscar(@PathVariable Long id){
 		Optional<Mandado> dados = repositorio.findById(id);
-		
+
 		if(dados.isEmpty()) {
 			System.out.println("Não achei nenhum dado com o id informado!");
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.ok(dados.get());
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
@@ -70,7 +69,7 @@ public class MandadoController {
 		Mandado m = repositorio.save(dados);
 		return m.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
-	
+
 	@PostMapping("/emlote")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
@@ -78,7 +77,7 @@ public class MandadoController {
 		List<Mandado> d = repositorio.saveAll(dados);
 		return (d.equals(null)||d.isEmpty()) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
-	
+
 	@PutMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
@@ -90,13 +89,13 @@ public class MandadoController {
 		dados.setId(id);
 		return ResponseEntity.ok(repositorio.save(dados));
 	}
-	
+
 	@PutMapping("/")
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<String> atualizar(){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagem);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
 	public ResponseEntity<Void> deletar(@PathVariable Long id){
@@ -106,7 +105,7 @@ public class MandadoController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/")
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<String> deletar(){

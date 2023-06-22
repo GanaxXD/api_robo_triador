@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Models;
+package com.tjma.toadalab.Models;
 
 import java.util.List;
 
@@ -11,23 +11,23 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "distritos")
 public class Distrito {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "nome_distrito")
 	private String nomeDistrito;
-	
+
 	@Column(name = "cod_normal")
 	private String codNormal;
-	
+
 	@Column(name = "cod_urgente")
-	private String codUrgente;	
-	
+	private String codUrgente;
+
 	@OneToMany(mappedBy = "distrito")
     private List<Mandado> mandados;
-	
+
 	public String getCodNormal() {
 		return codNormal;
 	}
@@ -58,5 +58,5 @@ public class Distrito {
 	public String toString() {
 		return "Distrito [nomeDistrito=" + nomeDistrito + ", id=" + id + "]";
 	}
-	
+
 }
