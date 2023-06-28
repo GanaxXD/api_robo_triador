@@ -92,7 +92,7 @@ public class ExecucaoController {
 		}
 		execucao.setRobo_id(robo);
 		execucao.setRodouEm(LocalDate.now());
-		Execucao ex = execucao.validarDadosDa(execucao) ? executeRepository.save(execucao) : null;
+		Execucao ex = executeRepository.save(execucao);
 		return  ex==null ?  ResponseEntity.badRequest().build() :  ResponseEntity.ok().build();
 	}
 
@@ -100,6 +100,7 @@ public class ExecucaoController {
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	@CacheEvict(value="[lista_mandados, mandado_unico]", allEntries = true)
 	public ResponseEntity<ExecucaoMandados> criarMandado(@RequestBody ExecucaoMandados execucao) {
+		System.out.println(execucao);
 		Robo robo = robosRepository.findById(execucao.getRobo().getId()).get();
 		if(robo==null) {
 			System.out.println("O robô de código "+execucao.getRobo().getId()+" não foi encontrado no banco de dados.");
@@ -107,7 +108,7 @@ public class ExecucaoController {
 		}
 		execucao.setRobo(robo);
 		execucao.setRodouEm(LocalDate.now());
-		ExecucaoMandados ex = execucao.validarDadosDa(execucao) ? executeMandRepository.save(execucao) : null;
+		ExecucaoMandados ex = executeMandRepository.save(execucao);
 		return ex == null ? ResponseEntity.badRequest().build() :ResponseEntity.ok().build();
 	}
 
