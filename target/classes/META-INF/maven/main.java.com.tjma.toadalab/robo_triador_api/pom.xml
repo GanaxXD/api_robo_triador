@@ -8,11 +8,11 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.0</version>
 	</parent>
-	<groupId>com.tjma.toadalab</groupId>
+	<groupId>main.java.com.tjma.toadalab</groupId>
 	<artifactId>robo_triador_api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>robo_triador_api</name>
-	<description>API de coleta de dados de processos etiquetados pelo robô triador</description>
+	<description>API de coleta de dados de processos manuseados pelas automações do Tribunal</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -41,12 +41,7 @@
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -68,7 +63,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
 

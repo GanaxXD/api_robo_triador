@@ -2,11 +2,7 @@ package main.java.com.tjma.toadalab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.system.SystemProperties;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.util.SystemPropertyUtils;
-
-import ch.qos.logback.core.util.SystemInfo;
 
 @SpringBootApplication
 @EnableCaching
@@ -18,8 +14,8 @@ public class RoboTriadorApiApplication {
 	            java.lang.management.ManagementFactory.getRuntimeMXBean().getName();
 	    Long l = Long.parseLong(processName.split("@")[0]);
 	   	System.out.println(l);
-		
+
 		SpringApplication.run(RoboTriadorApiApplication.class, args);
-	} 
+	}
 
 }

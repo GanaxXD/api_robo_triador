@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Cache;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -33,34 +32,31 @@ public class MandadoController {
 
 	@Autowired
 	private MandadoRepository repositorio;
-	
+
 	@Autowired
 	private DistritoRepository disRepository;
-	
+
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
-	
+
 	@GetMapping()
-	@Cacheable(value="lista_dados_mandados")//dando um apelido para esse cache
 	public List<Mandado> listar(){
 		return repositorio.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
-	@Cacheable(value="dados_mandado")//dando um apelido para esse cache
 	public ResponseEntity<Mandado> buscar(@PathVariable Long id){
 		Optional<Mandado> dados = repositorio.findById(id);
-		
+
 		if(dados.isEmpty()) {
 			System.out.println("Não achei nenhum dado com o id informado!");
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.ok(dados.get());
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
 	public ResponseEntity<Mandado> criar(@RequestBody @Validated Mandado dados){
 		Distrito distrito = disRepository.findById(dados.getDistrito().getId()).orElse(null);
 		if(distrito == null) {
@@ -70,18 +66,16 @@ public class MandadoController {
 		Mandado m = repositorio.save(dados);
 		return m.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
-	
+
 	@PostMapping("/emlote")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
 	public ResponseEntity<List<Mandado>> criarListaDeMandadosEnviados(@RequestBody @Validated List<Mandado> dados){
 		List<Mandado> d = repositorio.saveAll(dados);
 		return (d.equals(null)||d.isEmpty()) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
-	
+
 	@PutMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
 	public ResponseEntity<Mandado> atualizar(@RequestBody Mandado dados, @PathVariable Long id){
 		if(!repositorio.existsById(id)) {
 			System.out.println("Dados de Execução do Robô de Mandados não encontrado no banco de dados para o id passado.");
@@ -90,15 +84,14 @@ public class MandadoController {
 		dados.setId(id);
 		return ResponseEntity.ok(repositorio.save(dados));
 	}
-	
+
 	@PutMapping("/")
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<String> atualizar(){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagem);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	@CacheEvict(value="[lista_dados_mandados, dados_mandado]", allEntries = true)//limpe o cahce de nome ["x"] quando houver atualização dos dados (allEntries=atualiza para todas as entradas no banco
 	public ResponseEntity<Void> deletar(@PathVariable Long id){
 		if(repositorio.existsById(id)) {
 			repositorio.delete(repositorio.findById(id).get());
@@ -106,7 +99,7 @@ public class MandadoController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/")
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<String> deletar(){

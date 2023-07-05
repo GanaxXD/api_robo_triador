@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import main.java.com.tjma.toadalab.Models.Distrito;
 import main.java.com.tjma.toadalab.Repositories.DistritoRepository;
 import main.java.com.tjma.toadalab.Services.Validador;
+
+
 @RestController
 @RequestMapping(value="/distritos", produces = "application/json")
 @CrossOrigin(origins = "*")
@@ -29,44 +31,36 @@ public class DistritoController {
 
 	@Autowired
 	private DistritoRepository executeRepository;
-	
+
 	private Validador validador = new Validador();
 
 	@GetMapping
-	@Cacheable(value="lista_distritos")//dando um apelido para esse cache
 	public List<Distrito> listar(){
 		return executeRepository.findAll();
 	}
-	
+
 	@GetMapping("/{executeId}")
-	@Cacheable(value="distrito_unico")//dando um apelido para esse cache
 	public ResponseEntity<Distrito> buscar(@PathVariable Long executeId) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
-		
+
 		//O código de resposta da requisão não pode ser 200 caso seja nulo o cliente, logo...
 		if(distritoDoBanco.isPresent()) {
 			//retorna o código 200 pra requisição
 			return ResponseEntity.ok(distritoDoBanco.get());
 		}
-		
+
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
-	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<String> criar(@RequestBody Distrito distrito) {
 		Distrito distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodNormal()).orElse(null);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+distritoDoBanco);
 		if(distritoDoBanco!=null) {				
 			System.out.println("O distrito não é válido!");
 			return ResponseEntity.badRequest().body("{Distrito com código Normal já cadastrado no banco: "+distritoDoBanco.toString()+"}");
 		} 
-		distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodUrgente()).orElse(null);
-		if(distritoDoBanco!=null) {				
-			System.out.println("O distrito não é válido!");
-			return ResponseEntity.badRequest().body("{Distrito com código Urgênte já cadastrado no banco: "+distritoDoBanco.toString()+"}");
-		} 
+		
 		/*
 		 * if(validador.validarDistrito(distrito) == false) { System.out.
 		 * println("Distrito com código normal, urgente ou nome já existente no banco."
@@ -75,22 +69,20 @@ public class DistritoController {
 		executeRepository.save(distrito);
 		return  ResponseEntity.ok(distrito.toString());
 	}
-	
+
 	@PutMapping("/{executeId}")
-	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<Distrito> atualizar(@PathVariable Long executeId, @RequestBody Distrito distrito) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
-		
+
 		if(distritoDoBanco.isPresent()) {
 			distrito.setId(executeId);
 			return ResponseEntity.ok(executeRepository.save(distrito));
 		}
-		
+
 		return ResponseEntity.notFound().build(); //build ao fim para construir o response entity do tipo informado na assinatura.
 	}
-	
+
 	@DeleteMapping("/{executeId}")
-	@CacheEvict(value="[lista_distritos, distrito_unico]", allEntries = true)
 	public ResponseEntity<Distrito> deletar(@PathVariable Long executeId) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
 		if(distritoDoBanco.isPresent()) {

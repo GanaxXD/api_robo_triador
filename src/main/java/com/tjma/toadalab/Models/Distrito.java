@@ -9,25 +9,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import main.java.com.tjma.toadalab.Models.Mandado;
+
 @Entity(name = "distritos")
 public class Distrito {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "nome_distrito")
 	private String nomeDistrito;
-	
+
 	@Column(name = "cod_normal")
 	private String codNormal;
-	
+
 	@Column(name = "cod_urgente")
-	private String codUrgente;	
-	
+	private String codUrgente;
+
 	@OneToMany(mappedBy = "distrito")
     private List<Mandado> mandados;
-	
+
 	public String getCodNormal() {
 		return codNormal;
 	}
@@ -59,6 +61,4 @@ public class Distrito {
 		return "Distrito [id=" + id + ", nomeDistrito=" + nomeDistrito + ", codNormal=" + codNormal + ", codUrgente="
 				+ codUrgente + ", mandados=" + mandados + "]";
 	}
-	
-	
 }

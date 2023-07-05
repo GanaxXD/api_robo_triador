@@ -12,29 +12,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 @Entity(name = "mandados")
 public class Mandado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "numero_processo")
 	private String numeroProcesso;
-	
+
 	@Column(name = "codigo_mandado")
 	private String codigoMandado;
+
+	@Column(name = "id_documento")
+	private String idDocumento;
 	
 	@ManyToOne
 	@JoinColumn(name = "distrito_id")
 	private Distrito distrito;
-	
+
 	@Column(name = "data_distribuicao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDistribuicao;
-	
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -58,15 +59,22 @@ public class Mandado {
 	public void setCodigoMandado(String codigoMandado) {
 		this.codigoMandado = codigoMandado;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Mandado [id=" + id + ", numeroProcesso=" + numeroProcesso + ", codigoMandado=" + codigoMandado
+				+ ", idDocumento=" + idDocumento + ", distrito=" + distrito + ", dataDistribuicao=" + dataDistribuicao
 				+ "]";
 	}
 
-	
-	
+	public String getIdDocumento() {
+		return idDocumento;
+	}
+
+	public void setIdDocumento(String idDocumento) {
+		this.idDocumento = idDocumento;
+	}
+
 	public Distrito getDistrito() {
 		return distrito;
 	}
@@ -85,6 +93,6 @@ public class Mandado {
 
 	public Mandado() {
 	}
-	
-	
+
+
 }

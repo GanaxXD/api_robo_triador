@@ -7,14 +7,14 @@ package main.java.com.tjma.toadalab.Models;
  */
 public class Usuario{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String senha;
 	public String getId() {
 		return id;
-	} 
+	}
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -32,7 +32,7 @@ public class Usuario{
 		this.id = id;
 		this.senha = senha;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", senha=" + senha + "]";
@@ -40,6 +40,6 @@ public class Usuario{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
+
+
 }
