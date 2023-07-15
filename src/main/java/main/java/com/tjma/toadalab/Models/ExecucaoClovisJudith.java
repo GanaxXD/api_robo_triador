@@ -11,8 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "execucoes")
-public class Execucao {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity(name = "execucoes_clovis_judith")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExecucaoClovisJudith {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -141,7 +148,7 @@ public class Execucao {
 	 * encontrouErro; }
 	 */
 
-	public boolean validarDadosDa(Execucao ex) {
+	public boolean validarDadosDa(ExecucaoClovisJudith ex) {
 		if (ex == null || ex.getRobo_id().getId() == null || ex.getHoraInicialExecucaoRobo() == null
 				|| ex.getHoraInicialExecucaoRobo().isBlank() || ex.getHoraInicialExecucaoRobo().isEmpty()) {
 			return false;

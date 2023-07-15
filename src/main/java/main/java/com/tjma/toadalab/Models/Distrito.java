@@ -9,7 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity(name = "distritos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Distrito {
 
 	@Id
@@ -27,41 +34,6 @@ public class Distrito {
 
 	@OneToMany(mappedBy = "distrito")
 	private List<Mandado> mandados;
-
-	public String getCodNormal() {
-		return codNormal;
-	}
-
-	public void setCodNormal(String codNormal) {
-		this.codNormal = codNormal;
-	}
-
-	public String getCodUrgente() {
-		return codUrgente;
-	}
-
-	public void setCodUrgente(String codUrgente) {
-		this.codUrgente = codUrgente;
-	}
-
-	public String getNomeDistrito() {
-		return nomeDistrito;
-	}
-
-	public void setNomeDistrito(String nomeDistrito) {
-		this.nomeDistrito = nomeDistrito;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Distrito() {
-	}
 
 	@Override
 	public String toString() {

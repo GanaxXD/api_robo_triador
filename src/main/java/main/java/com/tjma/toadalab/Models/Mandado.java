@@ -12,7 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity(name = "mandados")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Mandado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,62 +42,10 @@ public class Mandado {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDistribuicao;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNumeroProcesso() {
-		return numeroProcesso;
-	}
-
-	public void setNumeroProcesso(String numeroProcesso) {
-		this.numeroProcesso = numeroProcesso;
-	}
-
-	public String getCodigoMandado() {
-		return codigoMandado;
-	}
-
-	public void setCodigoMandado(String codigoMandado) {
-		this.codigoMandado = codigoMandado;
-	}
-
 	@Override
 	public String toString() {
 		return "Mandado [id=" + id + ", numeroProcesso=" + numeroProcesso + ", codigoMandado=" + codigoMandado
 				+ ", idDocumento=" + idDocumento + ", distrito=" + distrito + ", dataDistribuicao=" + dataDistribuicao
 				+ "]";
 	}
-
-	public String getIdDocumento() {
-		return idDocumento;
-	}
-
-	public void setIdDocumento(String idDocumento) {
-		this.idDocumento = idDocumento;
-	}
-
-	public Distrito getDistrito() {
-		return distrito;
-	}
-
-	public void setDistrito(Distrito distrito) {
-		this.distrito = distrito;
-	}
-
-	public Date getDataDistribuicao() {
-		return dataDistribuicao;
-	}
-
-	public void setDataDistribuicao(Date dataDistribuicao) {
-		this.dataDistribuicao = dataDistribuicao;
-	}
-
-	public Mandado() {
-	}
-
 }
