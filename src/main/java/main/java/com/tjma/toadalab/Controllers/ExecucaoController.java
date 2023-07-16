@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Controllers;
+package main.java.com.tjma.toadalab.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.ExecucaoClovisJudith;
-import main.java.com.tjma.toadalab.Models.ExecucaoMarioLucio;
-import main.java.com.tjma.toadalab.Models.Robo;
-import main.java.com.tjma.toadalab.Repositories.ExecucaoMandadosRepository;
-import main.java.com.tjma.toadalab.Repositories.ExecucaoRepository;
-import main.java.com.tjma.toadalab.Repositories.RobosRepository;
+import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
+import main.java.com.tjma.toadalab.models.ExecucaoMarioLucio;
+import main.java.com.tjma.toadalab.models.Robo;
+import main.java.com.tjma.toadalab.repositories.ExecucaoMandadosRepository;
+import main.java.com.tjma.toadalab.repositories.ExecucaoRepository;
+import main.java.com.tjma.toadalab.repositories.RobosRepository;
 
 @RestController
 @RequestMapping(value = "/execucoes", produces = "application/json")

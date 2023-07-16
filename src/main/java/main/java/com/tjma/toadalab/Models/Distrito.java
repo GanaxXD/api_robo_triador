@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Models;
+package main.java.com.tjma.toadalab.models;
 
 import java.util.List;
 

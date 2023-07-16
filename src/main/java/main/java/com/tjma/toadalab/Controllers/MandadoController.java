@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Controllers;
+package main.java.com.tjma.toadalab.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.Distrito;
-import main.java.com.tjma.toadalab.Models.Mandado;
-import main.java.com.tjma.toadalab.Repositories.DistritoRepository;
-import main.java.com.tjma.toadalab.Repositories.MandadoRepository;
+import main.java.com.tjma.toadalab.models.Distrito;
+import main.java.com.tjma.toadalab.models.Mandado;
+import main.java.com.tjma.toadalab.repositories.DistritoRepository;
+import main.java.com.tjma.toadalab.repositories.MandadoRepository;
 
 @RestController
 @RequestMapping(value = "/dadosmandados", produces = "application/json")

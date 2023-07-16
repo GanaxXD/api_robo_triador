@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Controllers;
+package main.java.com.tjma.toadalab.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.Models.Robo;
-import main.java.com.tjma.toadalab.Repositories.RobosRepository;
-import main.java.com.tjma.toadalab.Services.Validador;
+import main.java.com.tjma.toadalab.models.Robo;
+import main.java.com.tjma.toadalab.repositories.RobosRepository;
+import main.java.com.tjma.toadalab.services.Validador;
 
 @RestController
 @RequestMapping(value = "/robos", produces = "application/json")

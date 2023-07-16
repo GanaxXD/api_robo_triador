@@ -1,4 +1,4 @@
-package main.java.com.tjma.toadalab.Models;
+package main.java.com.tjma.toadalab.models;
 
 /*
  * Classe que representa as credenciais de acesso do usuário

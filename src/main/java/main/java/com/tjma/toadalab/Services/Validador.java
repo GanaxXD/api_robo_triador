@@ -1,13 +1,13 @@
-package main.java.com.tjma.toadalab.Services;
+package main.java.com.tjma.toadalab.services;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import main.java.com.tjma.toadalab.Models.Distrito;
-import main.java.com.tjma.toadalab.Models.Robo;
-import main.java.com.tjma.toadalab.Repositories.DistritoRepository;
-import main.java.com.tjma.toadalab.Repositories.RobosRepository;
+import main.java.com.tjma.toadalab.models.Distrito;
+import main.java.com.tjma.toadalab.models.Robo;
+import main.java.com.tjma.toadalab.repositories.DistritoRepository;
+import main.java.com.tjma.toadalab.repositories.RobosRepository;
 
 public class Validador {
 
