@@ -1,4 +1,4 @@
-create table if not exists execucao_mandados(
+create table if not exists execucao_mario_lucio(
 	id SERIAL NOT NULL PRIMARY KEY,
 	tempo_distribuindo_mandados VARCHAR(11) NOT NULL,
 	quantidade_mandados_enviados INT NOT NULL,

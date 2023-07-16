@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-create table if not exists execucoes_clovisjudith(
-=======
-create table if not exists execucoes(
->>>>>>> bfc5b69ce59f4ad750a34cf0bde06091082ee113
+create table if not exists execucoes_clovis_judith(
 	id SERIAL NOT NULL PRIMARY KEY,
 	tempo_etiquetando_processos varchar NOT NULL,
 	hora_inicial_execucao_robo varchar(11) not null,

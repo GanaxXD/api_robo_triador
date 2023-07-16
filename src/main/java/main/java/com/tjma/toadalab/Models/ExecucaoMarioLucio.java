@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "execucao_mandados")
+@Entity(name = "execucao_mario_lucio")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
