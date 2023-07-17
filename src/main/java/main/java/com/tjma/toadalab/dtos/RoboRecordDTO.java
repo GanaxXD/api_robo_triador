@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
-
 
 /*
  * Para facilitar a criação dos DTOs (Data Transfer Object, 
@@ -19,4 +16,4 @@ import org.hibernate.validator.constraints.UniqueElements;
  * Records só possuem métodos geters
  * Records só precisam dos parâmetros que serão enviados ao banco.
  */
-public record RoboRecordDTO(@NotNull String tipo, @NotNull String localImplantado, LocalDate instaladoEm, @UniqueElements String nomeRobo, String grau) {}
+public record RoboRecordDTO(@NotNull String tipo, @NotNull String localImplantado, LocalDate instaladoEm, String nomeRobo, String grau) {}

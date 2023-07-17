@@ -2,7 +2,7 @@ INSERT INTO robos (tipo,local_implantado, instalado_em, nome_robo, grau)
 VALUES
   ('Triador','1ª Câmara Cível - Des. Jorge Rachid','2021-12-06','ToadaRobô01', '2'),
   ('Triador','Assessoria Jurídica da Presidência','2021-12-07','ToadaRobô02', '2'),
-  ('Intimações','SEJUD','2021-12-15','ToadaRobô03' '1'),
+  ('Intimações','SEJUD','2021-12-15','ToadaRobô03', '1'),
   ('Redistribuição','1º Juizado Especial Cível e Criminal do Termo Judiciário de São José de Ribamar','2021-12-15','ToadaRobô04', '1'),
   ('Triador','Dr. Ernesto Alves (1ª Turma Recursal)','2022-02-01','ToadaRobô05', '2'),
   ('Triador','Gab. Des. Raimundo Bogéa','2022-02-18','ToadaRobô06', '2'),

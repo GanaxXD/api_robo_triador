@@ -4,8 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.apache.tomcat.util.buf.CharsetUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.java.com.tjma.toadalab.dtos.RoboRecordDTO;
 import main.java.com.tjma.toadalab.models.Robo;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
 import main.java.com.tjma.toadalab.services.Validador;
@@ -30,8 +36,8 @@ public class RoboController {
 	@Autowired
 	private RobosRepository roboRepository;
 
-	@Autowired
-	private CacheManager cacheManager;
+	//@Autowired
+	//private CacheManager cacheManager;
 
 	private Validador validador = new Validador();
 
@@ -74,7 +80,6 @@ public class RoboController {
 
 	@GetMapping("/buscar/processosparados/{numeroRobo}")
 	public ResponseEntity<Robo> buscarProcessosParadosNome(@PathVariable String numeroRobo) {
-
 		// Passando acentos pela URL, o decodificador está encontrando erros na
 		// conversão (RFC 7230 e RFC 3986)
 		String roboName = "ProcessosParados" + numeroRobo;
@@ -88,36 +93,34 @@ public class RoboController {
 			return ResponseEntity.ok(robo.get(0));
 		}
 
-		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
-													// assinatura.
+		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping(consumes = { "application/json", "application/text" })
-	public ResponseEntity<Robo> criar(@RequestBody Robo robo) {
-		if (robo == null || roboRepository.findByNomeRobo(robo.getNomeRobo()).isPresent() == true) {
-			return ResponseEntity.badRequest().build();
+	public ResponseEntity<Object> criar(@RequestBody @Valid RoboRecordDTO robo) {
+		if (robo == null || roboRepository.findByNomeRobo(robo.nomeRobo()).isPresent() == true) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).eTag("Robo com nome ja cadastrado na base").body("Robô com nome já cadastrado na base");
 		}
-		robo.setInstaladoEm(LocalDate.now());
-		Robo r = roboRepository.save(robo);
-		cacheManager.getCache("robo_processos_parados").clear();
-		return ResponseEntity.ok(r);
+		Robo r = new Robo(); 
+		BeanUtils.copyProperties(robo, r);
+		return ResponseEntity.ok(roboRepository.save(r));
 	}
 
 	@PutMapping("/{roboId}")
-	public ResponseEntity<Robo> atualizar(@Validated @RequestBody Robo robo, @PathVariable Long roboId) {
-
+	public ResponseEntity<Robo> atualizar(@Validated @RequestBody @Valid RoboRecordDTO robo, @PathVariable Long roboId) {
+		Robo r = new Robo();
 		if (!roboRepository.existsById(roboId)) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).eTag("Robô inexistente na base de dados").body(null);
 		}
-		if (robo.getInstaladoEm() == null || robo.getInstaladoEm().equals("")) {
-			Robo r = roboRepository.findById(roboId).get();
-			robo.setInstaladoEm(r.getInstaladoEm());
+		if (robo.instaladoEm() == null || robo.instaladoEm().equals("")) {
+			r.setInstaladoEm(r.getInstaladoEm());
 		}
-		robo.setId(roboId);
-		roboRepository.save(robo);
-		cacheManager.getCache("lista_robos").clear();
-		cacheManager.getCache("robo_processos_parados").clear();
-		return ResponseEntity.ok(robo);
+		BeanUtils.copyProperties(robo, r);		
+		r.setId(roboId);
+		roboRepository.save(r);
+		//cacheManager.getCache("lista_robos").clear();
+		//cacheManager.getCache("robo_processos_parados").clear();
+		return ResponseEntity.ok(r);
 	}
 
 	@DeleteMapping("/{roboId}")
@@ -127,7 +130,7 @@ public class RoboController {
 		}
 		// clientInterface.deletar(clientInterface.findById(clientId).get());
 		roboRepository.delete(roboRepository.findById(roboId).get());
-		cacheManager.getCache("robo_processos_parados").clear();
+		//cacheManager.getCache("robo_processos_parados").clear();
 		return ResponseEntity.noContent().build();
 	}
 }
