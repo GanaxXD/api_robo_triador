@@ -15,6 +15,5 @@ main\java\com\tjma\toadalab\RoboTriadorApiApplication.class
 main\java\com\tjma\toadalab\Repositories\MandadoRepository.class
 main\java\com\tjma\toadalab\Controllers\MandadoController.class
 main\java\com\tjma\toadalab\ModelMapper\RoboMapper.class
-main\java\com\tjma\toadalab\security\SpringConfigSecurity.class
 main\java\com\tjma\toadalab\Models\Execucao.class
 main\java\com\tjma\toadalab\Models\Robo.class
