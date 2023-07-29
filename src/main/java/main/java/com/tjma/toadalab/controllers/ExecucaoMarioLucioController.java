@@ -21,50 +21,28 @@ import org.springframework.web.bind.annotation.RestController;
 import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
 import main.java.com.tjma.toadalab.models.ExecucaoMarioLucio;
 import main.java.com.tjma.toadalab.models.Robo;
-import main.java.com.tjma.toadalab.repositories.ExecucaoMandadosRepository;
-import main.java.com.tjma.toadalab.repositories.ExecucaoRepository;
+import main.java.com.tjma.toadalab.repositories.ExecucaoMarioLucioRepository;
+import main.java.com.tjma.toadalab.repositories.ExecucaoClovisJudithRepository;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
 
 @RestController
-@RequestMapping(value = "/execucoes", produces = "application/json")
+@RequestMapping(value = "/execucoes/mandados", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class ExecucaoController {
+public class ExecucaoMarioLucioController {
+
 
 	@Autowired
-	private ExecucaoRepository executeRepository;
-
-	@Autowired
-	private ExecucaoMandadosRepository executeMandRepository;
+	private ExecucaoMarioLucioRepository executeMandRepository;
 
 	@Autowired
 	private RobosRepository robosRepository;
 
-	@GetMapping
-	public List<ExecucaoClovisJudith> listar() {
-		return executeRepository.findAll();
-	}
-
-	@GetMapping("/mandados")
+	@GetMapping("")
 	public List<ExecucaoMarioLucio> listarMandados() {
 		return executeMandRepository.findAll();
 	}
 
 	@GetMapping("/{executeId}")
-	public ResponseEntity<ExecucaoClovisJudith> buscar(@PathVariable Long executeId) {
-		Optional<ExecucaoClovisJudith> execucaoClovisJudith = executeRepository.findById(executeId);
-
-		// O código de resposta da requisão não pode ser 200 caso seja nulo o cliente,
-		// logo...
-		if (execucaoClovisJudith.isPresent()) {
-			// retorna o código 200 pra requisição
-			return ResponseEntity.ok(execucaoClovisJudith.get());
-		}
-
-		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
-													// assinatura.
-	}
-
-	@GetMapping("/mandados/{executeId}")
 	public ResponseEntity<ExecucaoMarioLucio> buscarMandado(@PathVariable Long executeId) {
 		Optional<ExecucaoMarioLucio> execucao = executeMandRepository.findById(executeId);
 
@@ -81,21 +59,6 @@ public class ExecucaoController {
 
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
-	public ResponseEntity<ExecucaoClovisJudith> criar(@RequestBody ExecucaoClovisJudith execucaoClovisJudith) {
-		Robo robo = robosRepository.findById(execucaoClovisJudith.getRobo_id().getId()).orElse(null);
-		if (robo == null) {
-			System.out.println(
-					"O robô de código " + execucaoClovisJudith.getRobo_id().getId() + " não foi encontrado no banco de dados.");
-			return ResponseEntity.notFound().build();
-		}
-		execucaoClovisJudith.setRobo_id(robo);
-		execucaoClovisJudith.setRodouEm(LocalDate.now());
-		ExecucaoClovisJudith ex = executeRepository.save(execucaoClovisJudith);
-		return ex == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().build();
-	}
-
-	@PostMapping("/mandados")
-	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	public ResponseEntity<ExecucaoMarioLucio> criarMandado(@RequestBody ExecucaoMarioLucio execucao) {
 		System.out.println(execucao);
 		Robo robo = robosRepository.findById(execucao.getRobo().getId()).get();
@@ -111,16 +74,6 @@ public class ExecucaoController {
 	}
 
 	@PutMapping("/{executeId}")
-	public ResponseEntity<ExecucaoClovisJudith> atualizar(@RequestBody ExecucaoClovisJudith execucaoClovisJudith, @PathVariable Long executeId) {
-		if (!executeRepository.existsById(executeId)) {
-			return ResponseEntity.notFound().build();
-		}
-
-		execucaoClovisJudith.setId(executeId);
-		return ResponseEntity.ok(executeRepository.save(execucaoClovisJudith));
-	}
-
-	@PutMapping("/mandados/{executeId}")
 	public ResponseEntity<ExecucaoMarioLucio> atualizarMandado(@RequestBody ExecucaoMarioLucio execucao,
 			@PathVariable Long executeId) {
 		if (!executeMandRepository.existsById(executeId)) {
@@ -132,16 +85,6 @@ public class ExecucaoController {
 	}
 
 	@DeleteMapping("/{executeId}")
-	public ResponseEntity<Void> deletar(@PathVariable Long executeId) {
-		if (!executeRepository.existsById(executeId)) {
-			return ResponseEntity.notFound().build();
-		}
-		// clientInterface.deletar(clientInterface.findById(clientId).get());
-		executeRepository.delete(executeRepository.findById(executeId).get());
-		return ResponseEntity.noContent().build();
-	}
-
-	@DeleteMapping("/mandados/{executeId}")
 	public ResponseEntity<Void> deletarMandado(@PathVariable Long executeId) {
 		if (!executeMandRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
@@ -149,11 +92,5 @@ public class ExecucaoController {
 		// clientInterface.deletar(clientInterface.findById(clientId).get());
 		executeMandRepository.delete(executeMandRepository.findById(executeId).get());
 		return ResponseEntity.noContent().build();
-	}
-
-	@Override
-	public String toString() {
-		return "ExecucaoController [executeRepository=" + executeRepository + ", executeMandRepository="
-				+ executeMandRepository + ", robosRepository=" + robosRepository + "]";
 	}
 }

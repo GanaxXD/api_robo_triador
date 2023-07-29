@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Distrito {
 
 	@Id
@@ -37,9 +39,4 @@ public class Distrito {
 	@OneToMany(mappedBy = "distrito")
 	private List<Mandado> mandados;
 
-	@Override
-	public String toString() {
-		return "Distrito [id=" + id + ", nomeDistrito=" + nomeDistrito + ", codNormal=" + codNormal + ", codUrgente="
-				+ codUrgente + ", mandados=" + mandados + "]";
-	}
 }

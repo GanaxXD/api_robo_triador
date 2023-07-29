@@ -14,11 +14,13 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "execucoes_clovis_judith")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ExecucaoClovisJudith {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,98 +57,6 @@ public class ExecucaoClovisJudith {
 	@JoinColumn(name = "robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo_id;
 
-	public int getMinutasInseridas() {
-		return minutasInseridas;
-	}
-
-	public void setMinutasInseridas(int minutasInseridas) {
-		this.minutasInseridas = minutasInseridas;
-	}
-
-	public Robo getRobo_id() {
-		return robo_id;
-	}
-
-	public void setRobo_id(Robo robo_id) {
-		this.robo_id = robo_id;
-	}
-
-	public String getHoraInicialExecucaoRobo() {
-		return horaInicialExecucaoRobo;
-	}
-
-	public void setHoraInicialExecucaoRobo(String horaInicialExecucaoRobo) {
-		this.horaInicialExecucaoRobo = horaInicialExecucaoRobo;
-	}
-
-	public int getQuantidadeEtiquetasInseridas() {
-		return quantidadeEtiquetasInseridas;
-	}
-
-	public void setQuantidadeEtiquetasInseridas(int quantidadeEtiquetasInseridas) {
-		this.quantidadeEtiquetasInseridas = quantidadeEtiquetasInseridas;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public boolean isHouveErro() {
-		return houveErro;
-	}
-
-	public void setHouveErro(boolean houveErro) {
-		this.houveErro = houveErro;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public LocalTime getTempoEtiquetandoProcessos() {
-		return tempoEtiquetandoProcessos;
-	}
-
-	public void setTempoEtiquetandoProcessos(LocalTime tempoEtiquetandoProcessos) {
-		this.tempoEtiquetandoProcessos = tempoEtiquetandoProcessos;
-	}
-
-	public int getQtdProcessosLidos() {
-		return qtdProcessosLidos;
-	}
-
-	public void setQtdProcessosLidos(int qtdProcessosLidos) {
-		this.qtdProcessosLidos = qtdProcessosLidos;
-	}
-
-	/*
-	 * public String getTempoEtiquetandoProcessos() { return
-	 * tempoEtiquetandoProcessos; }
-	 *
-	 * public void setTempoEtiquetandoProcessos(String tempoEtiquetandoProcessos) {
-	 * this.tempoEtiquetandoProcessos = tempoEtiquetandoProcessos; }
-	 */
-	public int getQuantidadeProcessosEtiquetados() {
-		return quantidadeProcessosEtiquetados;
-	}
-
-	public void setQuantidadeProcessosEtiquetados(int quantidadeProcessosEtiquetados) {
-		this.quantidadeProcessosEtiquetados = quantidadeProcessosEtiquetados;
-	}
-
-	public LocalDate getRodouEm() {
-		return rodouEm;
-	}
-
-	public void setRodouEm(LocalDate rodouEm) {
-		this.rodouEm = rodouEm;
-	}
-	/*
-	 * public boolean isEncontrouErro() { return encontrouErro; }
-	 *
-	 * public void setEncontrouErro(boolean encontrouErro) { this.encontrouErro =
-	 * encontrouErro; }
-	 */
 
 	public boolean validarDadosDa(ExecucaoClovisJudith ex) {
 		if (ex == null || ex.getRobo_id().getId() == null || ex.getHoraInicialExecucaoRobo() == null

@@ -11,10 +11,12 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity(name = "robos")
 public class Robo {
 	@Id
@@ -36,9 +38,4 @@ public class Robo {
 	@Column(name = "grau")
 	private String grau;
 
-	@Override
-	public String toString() {
-		return "Robo [id=" + id + ", tipo=" + tipo + ", localImplantado=" + localImplantado + ", instaladoEm="
-				+ instaladoEm + "grau= "+grau+"]";
-	}
 }

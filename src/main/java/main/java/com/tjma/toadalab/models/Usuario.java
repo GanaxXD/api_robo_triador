@@ -1,47 +1,27 @@
 package main.java.com.tjma.toadalab.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /*
  * Classe que representa as credenciais de acesso do usuário
  * para o modelo Basic V1
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Usuario {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String login;
 	private String senha;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public Usuario() {
-		super();
-	}
-
-	public Usuario(String id, String senha) {
-		super();
-		this.id = id;
-		this.senha = senha;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", senha=" + senha + "]";
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

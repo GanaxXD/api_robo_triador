@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ExecucaoMarioLucio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,14 +50,4 @@ public class ExecucaoMarioLucio {
 	@JoinColumn(name = "robo_id", referencedColumnName = "id", nullable = false)
 	private Robo robo;
 
-	@Override
-	public String toString() {
-		return "ExecucaoMarioLucio [id=" + id + ", tempoDistribuindoMandados=" + tempoDistribuindoMandados
-				+ ", quantidadeMandadosEnviados=" + quantidadeMandadosEnviados
-				+ ", quantidadeMandadosEnviadosParaAnalise=" + quantidadeMandadosEnviadosParaAnalise + ", rodouEm="
-				+ rodouEm + ", houveErro=" + houveErro + ", horaInicialExecucaoRobo=" + horaInicialExecucaoRobo
-				+ ", robo=" + robo + "]";
-	}
-
-	
 }

@@ -7,6 +7,6 @@ import main.java.com.tjma.toadalab.models.ExecucaoMarioLucio;
 
 //Repositório de Execução
 @Repository
-public interface ExecucaoMandadosRepository extends JpaRepository<ExecucaoMarioLucio, Long> {
+public interface ExecucaoMarioLucioRepository extends JpaRepository<ExecucaoMarioLucio, Long> {
 
 }

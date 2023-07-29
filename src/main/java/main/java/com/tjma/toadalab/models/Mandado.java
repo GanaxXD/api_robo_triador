@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 public class Mandado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,10 +46,4 @@ public class Mandado {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDistribuicao;
 
-	@Override
-	public String toString() {
-		return "Mandado [id=" + id + ", numeroProcesso=" + numeroProcesso + ", codigoMandado=" + codigoMandado
-				+ ", idDocumento=" + idDocumento + ", distrito=" + distrito + ", dataDistribuicao=" + dataDistribuicao
-				+ "]";
-	}
 }

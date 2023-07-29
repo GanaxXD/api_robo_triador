@@ -29,8 +29,6 @@ public class DistritoController {
 	@Autowired
 	private DistritoRepository executeRepository;
 
-	private Validador validador = new Validador();
-
 	@GetMapping
 	public List<Distrito> listar() {
 		return executeRepository.findAll();

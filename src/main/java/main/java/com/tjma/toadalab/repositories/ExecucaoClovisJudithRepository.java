@@ -7,6 +7,6 @@ import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
 
 //Repositório de Execução
 @Repository
-public interface ExecucaoRepository extends JpaRepository<ExecucaoClovisJudith, Long> {
+public interface ExecucaoClovisJudithRepository extends JpaRepository<ExecucaoClovisJudith, Long> {
 
 }
