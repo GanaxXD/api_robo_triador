@@ -1,1 +1,0 @@
-alter table mandados add column id_documento varchar;
