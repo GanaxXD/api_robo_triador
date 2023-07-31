@@ -113,13 +113,6 @@ public class Execucao {
 		this.qtdProcessosLidos = qtdProcessosLidos;
 	}
 
-	/*
-	 * public String getTempoEtiquetandoProcessos() { return
-	 * tempoEtiquetandoProcessos; }
-	 *
-	 * public void setTempoEtiquetandoProcessos(String tempoEtiquetandoProcessos) {
-	 * this.tempoEtiquetandoProcessos = tempoEtiquetandoProcessos; }
-	 */
 	public int getQuantidadeProcessosEtiquetados() {
 		return quantidadeProcessosEtiquetados;
 	}
@@ -135,12 +128,6 @@ public class Execucao {
 	public void setRodouEm(LocalDate rodouEm) {
 		this.rodouEm = rodouEm;
 	}
-	/*
-	 * public boolean isEncontrouErro() { return encontrouErro; }
-	 *
-	 * public void setEncontrouErro(boolean encontrouErro) { this.encontrouErro =
-	 * encontrouErro; }
-	 */
 
 	public boolean validarDadosDa(Execucao ex) {
 		if(ex == null || ex.getRobo_id().getId() == null ||
