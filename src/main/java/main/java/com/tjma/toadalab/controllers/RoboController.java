@@ -39,8 +39,6 @@ public class RoboController {
 	//@Autowired
 	//private CacheManager cacheManager;
 
-	private Validador validador = new Validador();
-
 	@GetMapping()
 	public List<Robo> listar() {
 		return roboRepository.findAll();
