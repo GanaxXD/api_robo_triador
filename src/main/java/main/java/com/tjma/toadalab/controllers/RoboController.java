@@ -1,15 +1,12 @@
 package main.java.com.tjma.toadalab.controllers;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.buf.CharsetUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
