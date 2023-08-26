@@ -24,6 +24,7 @@ import main.java.com.tjma.toadalab.models.Robo;
 import main.java.com.tjma.toadalab.repositories.ExecucaoMarioLucioRepository;
 import main.java.com.tjma.toadalab.repositories.ExecucaoClovisJudithRepository;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
+import main.java.com.tjma.toadalab.services.Validador;
 
 @RestController
 @RequestMapping(value = "/execucoes/mandados", produces = "application/json")
@@ -36,6 +37,8 @@ public class ExecucaoMarioLucioController {
 
 	@Autowired
 	private RobosRepository robosRepository;
+	
+	Validador validadorMarioLucio = new Validador();
 
 	@GetMapping("")
 	public List<ExecucaoMarioLucio> listarMandados() {
@@ -60,16 +63,15 @@ public class ExecucaoMarioLucioController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	public ResponseEntity<ExecucaoMarioLucio> criarMandado(@RequestBody ExecucaoMarioLucio execucao) {
-		System.out.println(execucao);
 		Robo robo = robosRepository.findById(execucao.getRobo().getId()).get();
 		if (robo == null) {
-			System.out.println(
+			System.err.println(
 					"O robô de código " + execucao.getRobo().getId() + " não foi encontrado no banco de dados.");
 			return ResponseEntity.notFound().build();
 		}
 		execucao.setRobo(robo);
 		execucao.setRodouEm(LocalDate.now());
-		ExecucaoMarioLucio ex = executeMandRepository.save(execucao);
+		ExecucaoMarioLucio ex = validadorMarioLucio.validarExecucaoMarioLucio(execucao) == true ? executeMandRepository.save(execucao) :null;
 		return ex == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().build();
 	}
 
@@ -79,9 +81,8 @@ public class ExecucaoMarioLucioController {
 		if (!executeMandRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
 		}
-
 		execucao.setId(executeId);
-		return ResponseEntity.ok(executeMandRepository.save(execucao));
+		return validadorMarioLucio.validarExecucaoMarioLucio(execucao) ? ResponseEntity.ok(executeMandRepository.save(execucao)) : ResponseEntity.badRequest().build();
 	}
 
 	@DeleteMapping("/{executeId}")

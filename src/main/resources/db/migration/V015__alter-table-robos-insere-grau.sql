@@ -1,0 +1,1 @@
+alter table robos add column grau varchar(100);

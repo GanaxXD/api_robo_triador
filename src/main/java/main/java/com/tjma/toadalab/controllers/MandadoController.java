@@ -22,6 +22,7 @@ import main.java.com.tjma.toadalab.models.Distrito;
 import main.java.com.tjma.toadalab.models.Mandado;
 import main.java.com.tjma.toadalab.repositories.DistritoRepository;
 import main.java.com.tjma.toadalab.repositories.MandadoRepository;
+import main.java.com.tjma.toadalab.services.Validador;
 
 @RestController
 @RequestMapping(value = "/dadosmandados", produces = "application/json")
@@ -33,6 +34,8 @@ public class MandadoController {
 
 	@Autowired
 	private DistritoRepository disRepository;
+	
+	private Validador validadorMandados = new Validador();
 
 	String mensagem = "Não foi passado na requisição o id do objeto que se deseja excluir ou atualizar.";
 
@@ -60,6 +63,8 @@ public class MandadoController {
 		if (distrito == null) {
 			System.out.println("Distrito não encontrado!");
 			return ResponseEntity.notFound().build();
+		}else if( validadorMandados.validarMandado(dados) != true) {
+			return ResponseEntity.badRequest().build();
 		}
 		Mandado m = repositorio.save(dados);
 		return m.equals(null) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
@@ -68,7 +73,12 @@ public class MandadoController {
 	@PostMapping("/emlote")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public ResponseEntity<List<Mandado>> criarListaDeMandadosEnviados(@RequestBody @Validated List<Mandado> dados) {
-		List<Mandado> d = repositorio.saveAll(dados);
+		List<Mandado> d;
+		if(validadorMandados.validarListaMandado(dados)){			
+			d = repositorio.saveAll(dados);
+		}else {
+			d =null;
+		}
 		return (d.equals(null) || d.isEmpty()) ? ResponseEntity.badRequest().build() : ResponseEntity.ok(dados);
 	}
 
