@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-
 @Entity(name = "execucao_mario_lucio")
 @Data
 @NoArgsConstructor
