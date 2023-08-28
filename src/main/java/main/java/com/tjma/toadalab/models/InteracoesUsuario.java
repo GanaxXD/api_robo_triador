@@ -32,16 +32,9 @@ public class InteracoesUsuario {
 	@Column(name = "data_de_execucao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeExecucao;
+	@Column(name="quantidade_caracteres_digitados")
+	private int quantidadeCaracteresDigitados;
+	@Column(name="quantidade_palavras_digitadas")
+	private int quantidadePalavrasDigitadas;
 	
-	@Override
-	public String toString() {
-		return "["
-				+ "{"
-					+ "\"id\":"+this.id+","
-					+ "\"quantidadeClick\":"+this.quantidadeClick+","
-					+ "\"roboId\":"+this.roboId.getId()+","
-					+ "\"dataDeExecucao\":"+this.dataDeExecucao
-				+ "}"
-			+ "]";
-	}
 }

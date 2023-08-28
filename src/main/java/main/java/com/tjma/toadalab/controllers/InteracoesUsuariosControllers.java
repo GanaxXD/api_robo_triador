@@ -24,7 +24,7 @@ import main.java.com.tjma.toadalab.repositories.InteracoesUsuariosRepository;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/interacoes", produces = "application/json")
+@RequestMapping(value = "/analytics", produces = "application/json")
 public class InteracoesUsuariosControllers {
 	@Autowired
 	private InteracoesUsuariosRepository repository;
