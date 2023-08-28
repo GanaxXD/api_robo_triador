@@ -1,10 +1,14 @@
 package main.java.com.tjma.toadalab.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import main.java.com.tjma.toadalab.models.Distrito;
+import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
+import main.java.com.tjma.toadalab.models.ExecucaoMarioLucio;
+import main.java.com.tjma.toadalab.models.Mandado;
 import main.java.com.tjma.toadalab.models.Robo;
 import main.java.com.tjma.toadalab.repositories.DistritoRepository;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
@@ -20,12 +24,20 @@ public class Validador {
 	public Validador() {
 	}
 
-	public boolean validarDistrito(Distrito distrito) {
+	public boolean validarDistritoPeloCodigo(Distrito distrito) {
 		if (distrito != null) {
 			Optional<Distrito> distritoDoBanco = distritoRepo.findById(distrito.getId());
 			if (ehUnicoPeloNome(distritoDoBanco.get()) && ehUnicoPeloCodigo(distritoDoBanco.get())) {
 				return true;
 			}
+		}
+		return false;
+	}
+	
+	public boolean validarDistrito(Distrito dados) {
+		if((dados.getCodNormal() != null || dados.getCodNormal().trim() != "")
+			&& (dados.getCodUrgente() != null || dados.getCodUrgente().trim() != "")) {
+			return true;
 		}
 		return false;
 	}
@@ -47,7 +59,7 @@ public class Validador {
 		return false;
 	}
 
-	/*
+	/**
 	 * Retorna true para um robô válido que atenda a regra de negócio: Robôs não
 	 * podem ter nomes iguais.
 	 *
@@ -56,13 +68,65 @@ public class Validador {
 	 * @return true para um robô válido para ser guardado na base de dados
 	 *
 	 */
-	public boolean validarRobo(Robo robo) {
+	public boolean validarRoboDoBanco(Robo robo) {
 		Optional<Robo> r = roboRepository.findByNomeRobo(robo.getNomeRobo());
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + roboRepository + "\n\n\n\n\n\n\n\n\n\n\n");
 		if (r.isPresent()) {
 			return false;
 		}
 
 		return true;
+	}
+	
+	public boolean validarRobo(Robo robo) {
+		if(robo.getInstaladoEm() == null
+			&& (robo.getLocalImplantado() != null || robo.getLocalImplantado().trim() != "")
+			&& (robo.getNomeRobo() != null || robo.getNomeRobo().trim() != "")
+			&& (robo.getTipo() != null || robo.getTipo() != "")) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean validarMandado(Mandado dados) {
+		if((dados.getCodigoMandado() != null || dados.getCodigoMandado().trim() != "")
+			&& (dados.getDataDistribuicao() != null) 
+			&& (dados.getDistrito() != null)
+			&& (dados.getIdDocumento() != null || dados.getIdDocumento().trim() != "")
+			&& (dados.getNumeroProcesso() != null || dados.getNumeroProcesso().trim() != "")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean validarListaMandado(List<Mandado> listaDados) {
+		boolean resultadoAtual = true;
+		for(Mandado dados : listaDados) {
+			if(validarMandado(dados)) {
+				
+			}else {
+				break;
+			}
+		}
+		return resultadoAtual == true ? true : false;
+	}
+	
+	public boolean validarExecucaoMarioLucio(ExecucaoMarioLucio dados) {
+		if((dados.getTempoDistribuindoMandados() != null)
+			&& (!this.validarRobo(dados.getRobo())) 
+			&& (dados.getQuantidadeMandadosEnviados()<0 )
+			&& (dados.getQuantidadeMandadosEnviadosParaAnalise()<0 )
+			&& (dados.getHoraInicialExecucaoRobo() != null || dados.getHoraInicialExecucaoRobo().trim() != "")) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean validarExecucaoClovisJudith(ExecucaoClovisJudith execucaoClovisJudith) {
+		if((execucaoClovisJudith.getHoraInicialExecucaoRobo() != null && execucaoClovisJudith.getHoraInicialExecucaoRobo().trim() != "")
+			&& (execucaoClovisJudith.getQuantidadeProcessosEtiquetados() <0)
+			&& (!validarRobo(execucaoClovisJudith.getRobo_id()))) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -35,6 +35,8 @@ public class RoboController {
 
 	//@Autowired
 	//private CacheManager cacheManager;
+	
+	private Validador validador = new Validador();
 
 	@GetMapping()
 	public List<Robo> listar() {
@@ -98,7 +100,7 @@ public class RoboController {
 		}
 		Robo r = new Robo(); 
 		BeanUtils.copyProperties(robo, r);
-		return ResponseEntity.ok(roboRepository.save(r));
+		return validador.validarRobo(r) ? ResponseEntity.ok(roboRepository.save(r)) : ResponseEntity.badRequest().build();
 	}
 
 	@PutMapping("/{roboId}")
@@ -112,10 +114,10 @@ public class RoboController {
 		}
 		BeanUtils.copyProperties(robo, r);		
 		r.setId(roboId);
-		roboRepository.save(r);
+		//roboRepository.save(r);
 		//cacheManager.getCache("lista_robos").clear();
 		//cacheManager.getCache("robo_processos_parados").clear();
-		return ResponseEntity.ok(r);
+		return validador.validarRobo(r) ? ResponseEntity.ok(roboRepository.save(r)) : ResponseEntity.badRequest().build();
 	}
 
 	@DeleteMapping("/{roboId}")

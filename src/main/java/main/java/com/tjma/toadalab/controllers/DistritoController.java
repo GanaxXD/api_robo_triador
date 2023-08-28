@@ -34,6 +34,8 @@ public class DistritoController {
 		return executeRepository.findAll();
 	}
 
+	private Validador validador = new Validador();
+	
 	@GetMapping("/{executeId}")
 	public ResponseEntity<Distrito> buscar(@PathVariable Long executeId) {
 		Optional<Distrito> distritoDoBanco = executeRepository.findById(executeId);
@@ -54,18 +56,16 @@ public class DistritoController {
 	public ResponseEntity<String> criar(@RequestBody Distrito distrito) {
 		Distrito distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodNormal()).orElse(null);
 		if (distritoDoBanco != null) {
-			System.out.println("O distrito não é válido!");
+			System.err.println("O distrito não é válido!");
 			return ResponseEntity.badRequest()
 					.body("{Distrito com código Normal já cadastrado no banco: " + distritoDoBanco.toString() + "}");
 		}
-
-		/*
-		 * if(validador.validarDistrito(distrito) == false) { System.out.
-		 * println("Distrito com código normal, urgente ou nome já existente no banco."
-		 * ); return ResponseEntity.badRequest().build(); }
-		 */
-		executeRepository.save(distrito);
-		return ResponseEntity.ok(distrito.toString());
+		if(validador.validarDistrito(distrito)) {
+			executeRepository.save(distrito);
+			return ResponseEntity.ok().body("Cadastro realizado:"+distrito);
+		}else {
+			return ResponseEntity.badRequest().body("O distrito cadastrado não é válido. O código normal e urgente são obrigatórios");
+		}
 	}
 
 	@PutMapping("/{executeId}")
@@ -74,7 +74,7 @@ public class DistritoController {
 
 		if (distritoDoBanco.isPresent()) {
 			distrito.setId(executeId);
-			return ResponseEntity.ok(executeRepository.save(distrito));
+			return validador.validarDistrito(distrito) ? ResponseEntity.ok(executeRepository.save(distrito)) : ResponseEntity.badRequest().build();
 		}
 
 		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na

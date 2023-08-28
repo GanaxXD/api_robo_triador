@@ -24,6 +24,7 @@ import main.java.com.tjma.toadalab.models.Robo;
 import main.java.com.tjma.toadalab.repositories.ExecucaoMarioLucioRepository;
 import main.java.com.tjma.toadalab.repositories.ExecucaoClovisJudithRepository;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
+import main.java.com.tjma.toadalab.services.Validador;
 
 @RestController
 @RequestMapping(value = "/execucoes", produces = "application/json")
@@ -35,6 +36,8 @@ public class ExecucaoClovisJudithController {
 
 	@Autowired
 	private RobosRepository robosRepository;
+	
+	private Validador validador = new Validador();
 
 	@GetMapping
 	public List<ExecucaoClovisJudith> listar() {
@@ -60,15 +63,14 @@ public class ExecucaoClovisJudithController {
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	public ResponseEntity<ExecucaoClovisJudith> criar(@RequestBody ExecucaoClovisJudith execucaoClovisJudith) {
 		Robo robo = robosRepository.findById(execucaoClovisJudith.getRobo_id().getId()).orElse(null);
-		System.out.println(execucaoClovisJudith);
 		if (robo == null) {
-			System.out.println(
+			System.err.println(
 					"O robô de código " + execucaoClovisJudith.getRobo_id().getId() + " não foi encontrado no banco de dados.");
 			return ResponseEntity.notFound().build();
 		}
 		execucaoClovisJudith.setRobo_id(robo);
 		execucaoClovisJudith.setRodouEm(LocalDate.now());
-		ExecucaoClovisJudith ex = executeRepository.save(execucaoClovisJudith);
+		ExecucaoClovisJudith ex = validador.validarExecucaoClovisJudith(execucaoClovisJudith) ? executeRepository.save(execucaoClovisJudith) : null;
 		return ex == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().build();
 	}
 
@@ -77,9 +79,8 @@ public class ExecucaoClovisJudithController {
 		if (!executeRepository.existsById(executeId)) {
 			return ResponseEntity.notFound().build();
 		}
-
 		execucaoClovisJudith.setId(executeId);
-		return ResponseEntity.ok(executeRepository.save(execucaoClovisJudith));
+		return validador.validarExecucaoClovisJudith(execucaoClovisJudith) ? ResponseEntity.ok(executeRepository.save(execucaoClovisJudith)) : ResponseEntity.badRequest().build();
 	}
 
 
