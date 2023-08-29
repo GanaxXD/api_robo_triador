@@ -10,3 +10,5 @@ create table if not exists execucao_mandados(
 
 	FOREIGN KEY (robo_id) REFERENCES robos(id)
 );
+
+

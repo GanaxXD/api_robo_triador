@@ -44,7 +44,7 @@ public class ExecucaoClovisJudith {
 	@Column(name = "quantidade_processos_lidos")
 	private int qtdProcessosLidos;
 
-	@Column(name = "encontrou_erro")
+	@Column(name = "houve_erro")
 	private boolean houveErro;
 
 	@Column(name = "hora_inicial_execucao_robo", nullable = false)
