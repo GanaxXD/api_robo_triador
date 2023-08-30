@@ -95,7 +95,8 @@ public class RoboController {
 
 	@PostMapping(consumes = { "application/json", "application/text" })
 	public ResponseEntity<Object> criar(@RequestBody @Valid RoboRecordDTO robo) {
-		if (robo == null || roboRepository.findByNomeRobo(robo.nomeRobo()).isPresent() == true) {
+		Robo auxiliar = roboRepository.findByNomeRobo(robo.nomeRobo()).orElse(null);
+		if (robo == null || auxiliar != null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).eTag("Robo com nome ja cadastrado na base").body("Robô com nome já cadastrado na base");
 		}
 		Robo r = new Robo(); 

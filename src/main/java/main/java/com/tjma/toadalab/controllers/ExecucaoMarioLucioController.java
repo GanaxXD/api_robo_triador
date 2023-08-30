@@ -63,7 +63,7 @@ public class ExecucaoMarioLucioController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	public ResponseEntity<ExecucaoMarioLucio> criarMandado(@RequestBody ExecucaoMarioLucio execucao) {
-		Robo robo = robosRepository.findById(execucao.getRobo().getId()).get();
+		Robo robo = robosRepository.findById(execucao.getRobo().getId()).orElse(null);
 		if (robo == null) {
 			System.err.println(
 					"O robô de código " + execucao.getRobo().getId() + " não foi encontrado no banco de dados.");

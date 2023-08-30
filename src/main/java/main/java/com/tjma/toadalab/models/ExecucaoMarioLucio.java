@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class ExecucaoMarioLucio {
 	private Long id;
 
 	@Column(name = "tempo_distribuindo_mandados", nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
 	private LocalTime tempoDistribuindoMandados;
 
 	@Column(name = "quantidade_mandados_enviados", nullable = false)

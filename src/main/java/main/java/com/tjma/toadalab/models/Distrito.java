@@ -36,7 +36,5 @@ public class Distrito {
 	@Column(name = "cod_urgente")
 	private String codUrgente;
 
-	@OneToMany(mappedBy = "distrito")
-	private List<Mandado> mandados;
 
 }
