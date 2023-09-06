@@ -78,7 +78,7 @@ public class Validador {
 	}
 	
 	public boolean validarRobo(Robo robo) {
-		if(robo.getInstaladoEm() == null
+		if(robo.getInstaladoEm() != null
 			&& (robo.getLocalImplantado() != null || robo.getLocalImplantado().trim() != "")
 			&& (robo.getNomeRobo() != null || robo.getNomeRobo().trim() != "")
 			&& (robo.getTipo() != null || robo.getTipo() != "")) {
@@ -112,7 +112,7 @@ public class Validador {
 	
 	public boolean validarExecucaoMarioLucio(ExecucaoMarioLucio dados) {
 		if((dados.getTempoDistribuindoMandados() != null)
-			&& (!this.validarRobo(dados.getRobo())) 
+			&& (this.validarRobo(dados.getRobo()))
 			&& (dados.getQuantidadeMandadosEnviados()>=0 )
 			&& (dados.getQuantidadeMandadosEnviadosParaAnalise()>=0 )
 			&& (dados.getHoraInicialExecucaoRobo() != null || dados.getHoraInicialExecucaoRobo().trim() != "")) {
@@ -124,7 +124,7 @@ public class Validador {
 	public boolean validarExecucaoClovisJudith(ExecucaoClovisJudith execucaoClovisJudith) {
 		if((execucaoClovisJudith.getHoraInicialExecucaoRobo() != null && execucaoClovisJudith.getHoraInicialExecucaoRobo().trim() != "")
 			&& (execucaoClovisJudith.getQuantidadeProcessosEtiquetados() >=0)
-			&& (!validarRobo(execucaoClovisJudith.getRobo_id()))) {
+			&& (validarRobo(execucaoClovisJudith.getRobo_id()))) {
 			return true;
 		}
 		return false;
