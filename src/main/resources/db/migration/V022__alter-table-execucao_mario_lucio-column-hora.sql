@@ -1,0 +1,3 @@
+alter table execucao_mario_lucio alter column hora_inicial_execucao_robo type time USING (hora_inicial_execucao_robo::time with time zone);
+alter table execucao_mario_lucio alter column tempo_distribuindo_mandados type time USING (tempo_distribuindo_mandados::time with time zone);
+alter table execucoes_clovis_judith alter column hora_inicial_execucao_robo type time USING (hora_inicial_execucao_robo::time with time zone);
