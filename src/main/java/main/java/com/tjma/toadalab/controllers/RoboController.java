@@ -69,6 +69,8 @@ public class RoboController {
 
 		if (!robo.isEmpty()) {
 			return ResponseEntity.ok(robo.get(0));
+		} else {
+			System.err.println("Erro ao capturar dados do robô pelo nome: "+robo);
 		}
 
 		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na

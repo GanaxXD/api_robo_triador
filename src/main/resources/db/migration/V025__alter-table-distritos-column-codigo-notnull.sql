@@ -1,0 +1,1 @@
+alter table distritos alter column codigo set not null;

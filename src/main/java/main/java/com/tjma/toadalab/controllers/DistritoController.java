@@ -54,7 +54,7 @@ public class DistritoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
 	public ResponseEntity<String> criar(@RequestBody Distrito distrito) {
-		Distrito distritoDoBanco = executeRepository.findByCodNormal(distrito.getCodNormal()).orElse(null);
+		Distrito distritoDoBanco = executeRepository.findByCodigo(distrito.getCodigo()).orElse(null);
 		if (distritoDoBanco != null) {
 			System.err.println("O distrito não é válido!");
 			return ResponseEntity.badRequest()

@@ -35,8 +35,7 @@ public class Validador {
 	}
 	
 	public boolean validarDistrito(Distrito dados) {
-		if((dados.getCodNormal() != null || dados.getCodNormal().trim() != "")
-			&& (dados.getCodUrgente() != null || dados.getCodUrgente().trim() != "")) {
+		if((dados.getCodigo() != null || dados.getCodigo().trim() != "")) {
 			return true;
 		}
 		return false;
@@ -51,9 +50,8 @@ public class Validador {
 	}
 
 	public boolean ehUnicoPeloCodigo(Distrito distrito) {
-		Distrito codNormal = distritoRepo.findByCodNormal(distrito.getCodNormal()).orElse(null);
-		Distrito codUrgente = distritoRepo.findByCodUrgente(distrito.getCodUrgente()).orElse(null);
-		if (codNormal == null && codUrgente == null) {
+		Distrito codigo = distritoRepo.findByCodigo(distrito.getCodigo()).orElse(null);
+		if (codigo == null) {
 			return true;
 		}
 		return false;

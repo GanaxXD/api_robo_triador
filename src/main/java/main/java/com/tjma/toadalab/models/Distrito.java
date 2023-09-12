@@ -30,11 +30,8 @@ public class Distrito {
 	@Column(name = "nome_distrito")
 	private String nomeDistrito;
 
-	@Column(name = "cod_normal")
-	private String codNormal;
-
-	@Column(name = "cod_urgente")
-	private String codUrgente;
+	@Column(name = "codigo")
+	private String codigo;
 
 
 }
