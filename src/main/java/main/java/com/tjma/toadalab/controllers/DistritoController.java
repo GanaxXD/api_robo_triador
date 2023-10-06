@@ -50,6 +50,21 @@ public class DistritoController {
 		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
 													// assinatura.
 	}
+	
+	@GetMapping("/buscarcodigo/{codigoDistrito}")
+	public ResponseEntity<Distrito> buscarPorCodigoDistrito(@PathVariable String codigoDistrito) {
+		Optional<Distrito> distritoDoBanco = executeRepository.findByCodigo(codigoDistrito);
+
+		// O código de resposta da requisão não pode ser 200 caso seja nulo o cliente,
+		// logo...
+		if (distritoDoBanco.isPresent()) {
+			// retorna o código 200 pra requisição
+			return ResponseEntity.ok(distritoDoBanco.get());
+		}
+
+		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
+													// assinatura.
+	}
 
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
