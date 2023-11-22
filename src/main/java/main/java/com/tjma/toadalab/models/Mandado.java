@@ -45,7 +45,6 @@ public class Mandado {
 	private Distrito distrito;
 
 	@Column(name = "data_distribuicao")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDistribuicao;
 
