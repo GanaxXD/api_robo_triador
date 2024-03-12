@@ -35,7 +35,7 @@ public class Validador {
 	}
 	
 	public boolean validarDistrito(Distrito dados) {
-		if((dados.getCodigo() != null || dados.getCodigo().trim() != "")) {
+		if((dados.getCodigo() != null && dados.getCodigo().trim() != "") &&(dados.getNomeDistrito().trim() != null && dados.getNomeDistrito().trim() != "")) {
 			return true;
 		}
 		return false;
