@@ -1,12 +1,14 @@
 package main.java.com.tjma.toadalab.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,30 +16,24 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Entity(name = "processos_remetidos")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Entity(name = "robos")
-public class Robo {
+public class ProcessosRemetidos {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(name = "tipo")
-	private String tipo;
-
-	@Column(name = "local_implantado")
-	private String localImplantado;
-
-	@Column(name = "instalado_em")
-	private LocalDate instaladoEm;
 	
-	@Column(name = "nome_robo", unique = true)
-	private String nomeRobo;
+	@Column(name="quantidade_processos_remetidos")
+	private int quantidadeProcessosRemetidos;
 	
-	@Column(name = "grau")
-	private String grau;
-
+	@Column(name="data_execucao")
+	private LocalDateTime dataExecucao;
+	
+	@ManyToOne
+	@JoinColumn(name = "robo_id", referencedColumnName = "id", nullable = false)
+	private Robo robo_id;
 }
