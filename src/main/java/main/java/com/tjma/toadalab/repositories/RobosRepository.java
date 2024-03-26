@@ -10,10 +10,7 @@ import main.java.com.tjma.toadalab.models.Robo;
 
 @Repository
 public interface RobosRepository extends JpaRepository<Robo, Long> {
-
 	List<Robo> findByNomeRoboContains(String nome);
-
 	Optional<Robo> findByNomeRobo(String nomeRobo);
-	
 	Optional<Robo> findByTipo(String tipo);
 }

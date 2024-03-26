@@ -1,8 +1,8 @@
 package main.java.com.tjma.toadalab.dtos;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 
 /*

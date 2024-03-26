@@ -3,21 +3,13 @@ package main.java.com.tjma.toadalab.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name = "execucao_mario_lucio")
 @Data

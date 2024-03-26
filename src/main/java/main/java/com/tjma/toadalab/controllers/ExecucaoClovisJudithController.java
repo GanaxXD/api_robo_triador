@@ -1,9 +1,12 @@
 package main.java.com.tjma.toadalab.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import main.java.com.tjma.toadalab.models.*;
+import main.java.com.tjma.toadalab.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
-import main.java.com.tjma.toadalab.models.ExecucaoMarioLucio;
-import main.java.com.tjma.toadalab.models.Robo;
-import main.java.com.tjma.toadalab.repositories.ExecucaoMarioLucioRepository;
-import main.java.com.tjma.toadalab.repositories.ExecucaoClovisJudithRepository;
-import main.java.com.tjma.toadalab.repositories.RobosRepository;
 import main.java.com.tjma.toadalab.services.Validador;
 
 @RestController
@@ -36,7 +33,13 @@ public class ExecucaoClovisJudithController {
 
 	@Autowired
 	private RobosRepository robosRepository;
-	
+
+	@Autowired
+	private ProcessosRemetidosRepository processosRemetidosRepository;
+
+	@Autowired
+	private ProcessosRepository processosRepository;
+
 	private Validador validador = new Validador();
 
 	@GetMapping
@@ -58,6 +61,25 @@ public class ExecucaoClovisJudithController {
 		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
 													// assinatura.
 	}
+	@GetMapping("/processosRemetidos")
+	public List<ProcessosRemetidosAoSegundoGrau> listarProcessosRemetidos() {
+		return processosRemetidosRepository.findAll();
+	}
+
+	@GetMapping("/processosRemetidos/{executeProcessoRemetido}")
+	public ResponseEntity<Object> buscarProcessosRemetido(@PathVariable Long executeProcessoRemetido) {
+		Optional<ProcessosRemetidosAoSegundoGrau> processoRemetido = processosRemetidosRepository.findById(executeProcessoRemetido);
+
+		// O código de resposta da requisão não pode ser 200 caso seja nulo o cliente,
+		// logo...
+		if (processoRemetido.isPresent()) {
+			// retorna o código 200 pra requisição
+			return ResponseEntity.ok(processoRemetido.get());
+		}
+
+		return ResponseEntity.notFound().build(); // build ao fim para construir o response entity do tipo informado na
+		// assinatura.
+	}
 
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
@@ -74,6 +96,33 @@ public class ExecucaoClovisJudithController {
 		return ex == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().build();
 	}
 
+	//FIXME: Erro
+	@PostMapping("/processosRemetidos")
+	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	public ResponseEntity<Object> criarProcessosRemetidos(@RequestBody ProcessosRemetidosAoSegundoGrau processosRemetidos) {
+		Robo robo = robosRepository.findById(processosRemetidos.getRoboId().getId()).orElse(null);
+		if (robo == null) {
+			System.err.println(
+					"O robô de código " + processosRemetidos.getRoboId().getId() + " não foi encontrado no banco de dados.");
+			return ResponseEntity.badRequest().body("O_robô_de_código_" + processosRemetidos.getRoboId().getId() + "_não_foi_encontrado_no_banco_de_dados.");
+		}
+		// Associa os Processos ao ProcessosRemetidosAoSegundoGrau e salva-os
+		List<Processos> processosList = processosRemetidos.getProcessos();
+		List<ProcessosRemetidosAoSegundoGrau> processosRemetidosBanco = processosRemetidosRepository.findAll();
+		Long idUltimoProcessosRemetidosNoBanco = processosRemetidosBanco.size() > 0 ? processosRemetidosBanco.size()-1L: processosRemetidosBanco.size();
+		if(idUltimoProcessosRemetidosNoBanco == 0L || idUltimoProcessosRemetidosNoBanco < 0L) idUltimoProcessosRemetidosNoBanco = 1L;
+		if (processosList != null && !processosList.isEmpty()) {
+			for (Processos processo : processosList) {
+				processosRemetidos.setId(idUltimoProcessosRemetidosNoBanco);
+				processo.setProcessosRemetidosAoSegundoGrau(processosRemetidos);
+			}
+			processosRepository.saveAll(processosList);
+		} else {
+			return ResponseEntity.badRequest().body("A_lista_de_processos_remetidos_está_vazia.");
+		}
+		return ResponseEntity.ok(processosRemetidos);
+	}
+
 	@PutMapping("/{executeId}")
 	public ResponseEntity<ExecucaoClovisJudith> atualizar(@RequestBody ExecucaoClovisJudith execucaoClovisJudith, @PathVariable Long executeId) {
 		if (!executeRepository.existsById(executeId)) {
@@ -83,6 +132,15 @@ public class ExecucaoClovisJudithController {
 		return validador.validarExecucaoClovisJudith(execucaoClovisJudith) ? ResponseEntity.ok(executeRepository.save(execucaoClovisJudith)) : ResponseEntity.badRequest().build();
 	}
 
+	@PutMapping("/processosRemetidos/{idProcessoRemetido}")
+	@ResponseStatus(value = HttpStatus.CREATED, code = HttpStatus.CREATED)
+	public ResponseEntity<Object> atualizarProcessosRemetidos(@RequestBody ProcessosRemetidosAoSegundoGrau processosRemetidos, @PathVariable Long idProcessoRemetido) {
+		if (!processosRemetidosRepository.existsById(idProcessoRemetido)) {
+			return ResponseEntity.badRequest().body("O_id_do_Processo_Remetido_" + processosRemetidos.getRoboId().getId() + "_não_foi_encontrado_no_banco_de_dados.");
+		}
+		processosRemetidos.setId(idProcessoRemetido);
+		return ResponseEntity.ok(processosRemetidosRepository.save(processosRemetidos));
+	}
 
 	@DeleteMapping("/{executeId}")
 	public ResponseEntity<Void> deletar(@PathVariable Long executeId) {
