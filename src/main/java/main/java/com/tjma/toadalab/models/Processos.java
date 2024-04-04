@@ -1,6 +1,7 @@
 package main.java.com.tjma.toadalab.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ import lombok.*;
 @Getter
 @Entity(name = "processos")
 @EqualsAndHashCode
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Processos {
@@ -24,4 +24,8 @@ public class Processos {
     @ManyToOne
     @JoinColumn(name = "id_processo_remetido")
     private ProcessosRemetidosAoSegundoGrau processosRemetidosAoSegundoGrau;
+    @Override
+    public String toString(){
+        return "Processo: "+id+" - "+numeroProcesso;
+    }
 }

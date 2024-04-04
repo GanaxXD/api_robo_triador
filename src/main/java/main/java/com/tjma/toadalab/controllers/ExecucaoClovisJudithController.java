@@ -107,20 +107,18 @@ public class ExecucaoClovisJudithController {
 			return ResponseEntity.badRequest().body("O_robô_de_código_" + processosRemetidos.getRoboId().getId() + "_não_foi_encontrado_no_banco_de_dados.");
 		}
 		// Associa os Processos ao ProcessosRemetidosAoSegundoGrau e salva-os
+		processosRemetidos.setRoboId(robo);
 		List<Processos> processosList = processosRemetidos.getProcessos();
-		List<ProcessosRemetidosAoSegundoGrau> processosRemetidosBanco = processosRemetidosRepository.findAll();
-		Long idUltimoProcessosRemetidosNoBanco = processosRemetidosBanco.size() > 0 ? processosRemetidosBanco.size()-1L: processosRemetidosBanco.size();
-		if(idUltimoProcessosRemetidosNoBanco == 0L || idUltimoProcessosRemetidosNoBanco < 0L) idUltimoProcessosRemetidosNoBanco = 1L;
+		ProcessosRemetidosAoSegundoGrau processoSalvo = processosRemetidosRepository.save(processosRemetidos);
 		if (processosList != null && !processosList.isEmpty()) {
 			for (Processos processo : processosList) {
-				processosRemetidos.setId(idUltimoProcessosRemetidosNoBanco);
-				processo.setProcessosRemetidosAoSegundoGrau(processosRemetidos);
+				processo.setProcessosRemetidosAoSegundoGrau(processoSalvo);
 			}
 			processosRepository.saveAll(processosList);
 		} else {
 			return ResponseEntity.badRequest().body("A_lista_de_processos_remetidos_está_vazia.");
 		}
-		return ResponseEntity.ok(processosRemetidos);
+		return ResponseEntity.ok(processoSalvo);
 	}
 
 	@PutMapping("/{executeId}")
