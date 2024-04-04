@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class ExecucaoClovisJudith {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

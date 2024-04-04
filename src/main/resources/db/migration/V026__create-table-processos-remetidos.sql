@@ -6,3 +6,4 @@ create table if not exists processos_remetidos(
 
     foreign key (robo_id) references robos(id)
 )
+

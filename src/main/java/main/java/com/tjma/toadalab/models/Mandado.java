@@ -5,6 +5,7 @@ import java.util.Date;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -15,6 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString
+@EqualsAndHashCode
 public class Mandado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

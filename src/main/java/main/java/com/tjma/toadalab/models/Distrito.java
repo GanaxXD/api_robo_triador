@@ -1,16 +1,14 @@
 package main.java.com.tjma.toadalab.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name = "distritos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Distrito {
 
 	@Id
