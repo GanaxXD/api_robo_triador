@@ -3,7 +3,6 @@ package main.java.com.tjma.toadalab.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import main.java.com.tjma.toadalab.models.Distrito;
 import main.java.com.tjma.toadalab.models.ExecucaoClovisJudith;
@@ -12,7 +11,10 @@ import main.java.com.tjma.toadalab.models.Mandado;
 import main.java.com.tjma.toadalab.models.Robo;
 import main.java.com.tjma.toadalab.repositories.DistritoRepository;
 import main.java.com.tjma.toadalab.repositories.RobosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class Validador {
 
 	@Autowired
