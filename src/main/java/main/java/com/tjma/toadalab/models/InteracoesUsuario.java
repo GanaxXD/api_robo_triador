@@ -29,5 +29,9 @@ public class InteracoesUsuario {
 	private int quantidadeCaracteresDigitados;
 	@Column(name="quantidade_palavras_digitadas")
 	private int quantidadePalavrasDigitadas;
+	@Column(name="quantidade_caracteres_lidos")
+	private int quantidadeCaracteresLidos;
+	@Column(name="quantidade_palavras_lidas")
+	private int quantidadePalavrasLidas;
 	
 }

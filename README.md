@@ -5,7 +5,8 @@
 * *1.0.1:* Correções na coleta de dados e nas rotas de acesso da API, permitindo requisições realizadas por todo o TJMA (inserção do Cros-Origin - CORS).
 * *2.0.0:* Reestruturação das Entidades, Novas tabelas no banco para coleta de informações do robô Mário Lúcio; Corrções nas tabelas "Robôs", "Execuções Clóvis e Judith"; Inserção da entidade "Interações Usuário" para estimar quantidade de interações que o usuário humano teria ao realizar as tarefas dos robôs (quantidade de cliques e caracteres digitados).
 * *2.1.0:* Reestruturação das Entidades "Robôs" e "Execuções Mário Lúcio", permitindo uma coleta de dados que facilitem o tratamento dos dados no Power Bi para geração de relatórios mais intuitivos para a alta gestão do TJMA; Inserção das colunas "Quantidade de Minutas inseridas" na entidade "Execuções Clóvis e Judith". 
-* *2.2.0:* Inserção da Entidade "Processos Remetidos" para coleta da quantidade de processos remetidos ao segundo grau pelo robô da SEJUD.
+* *2.2.0:* Inserção da Entidade "Processos Remetidos" para coleta da quantidade de processos remetidos ao segundo grau pelo robô da SEJUD.  
+* *2.2.1:* Inserção das colunas "Quantidade Palavras Lidas" e "Quantidade d eCaracteres Lidos" na tabela "Interações Usuários".
 
 ### Notas:
 * O projeto está usando o *Lombok*
