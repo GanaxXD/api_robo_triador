@@ -3,10 +3,12 @@
 ## Release Notes:
 * *1.0.0:* Estrutura inicial de coleta de informações do Clóvis e da Judith. Os dados coletados incluem quantidade de processos etiquetados, quantidade de processos lidos, quantidade de etiquetas inseridas, o tempo de trabalho do Clóvis ou da Judith, a data de execução e o Local Implantado onde o robô rodou.
 * *1.0.1:* Correções na coleta de dados e nas rotas de acesso da API, permitindo requisições realizadas por todo o TJMA (inserção do Cros-Origin - CORS).
-* *2.0.0:* Reestruturação das Entidades, Novas tabelas no banco para coleta de informações do robô Mário Lúcio; Corrções nas tabelas "Robôs", "Execuções Clóvis e Judith"; Inserção da entidade "Interações Usuário" para estimar quantidade de interações que o usuário humano teria ao realizar as tarefas dos robôs (quantidade de cliques e caracteres digitados).
+* *2.0.0:* Reestruturação das Entidades, Novas tabelas no banco para coleta de informações do robô Mário Lúcio; Correções nas tabelas "Robôs", "Execuções Clóvis e Judith"; Inserção da entidade "Interações Usuário" para estimar quantidade de interações que o usuário humano teria ao realizar as tarefas dos robôs (quantidade de cliques e caracteres digitados).
 * *2.1.0:* Reestruturação das Entidades "Robôs" e "Execuções Mário Lúcio", permitindo uma coleta de dados que facilitem o tratamento dos dados no Power Bi para geração de relatórios mais intuitivos para a alta gestão do TJMA; Inserção das colunas "Quantidade de Minutas inseridas" na entidade "Execuções Clóvis e Judith". 
 * *2.2.0:* Inserção da Entidade "Processos Remetidos" para coleta da quantidade de processos remetidos ao segundo grau pelo robô da SEJUD.  
 * *2.2.1:* Inserção das colunas "Quantidade Palavras Lidas" e "Quantidade d eCaracteres Lidos" na tabela "Interações Usuários".
+* *2.2.1.1:* Correção no nome das colunas da tabela "Interações Usuários": Caracteres e Palavras digitadas para Caracteres e Palavras Lidas. Alteração feita para que as coletas de dados já realizadas reflitam a realidade. O robô não escreveu, apenas leu o processo.
+* *2.2.2:* Inserção da coluna "ativo" e "bairro" na tabela Distritos, para que seja possível verificar a que bairro o código se refere.
 
 ### Notas:
 * O projeto está usando o *Lombok*

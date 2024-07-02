@@ -21,5 +21,9 @@ public class Distrito {
 	@Column(name = "codigo")
 	private String codigo;
 
-
+	@Column(name = "bairro")
+	private String bairro;
+	
+	@Column(name = "ativo", columnDefinition = "boolean")
+	private boolean ativo;
 }

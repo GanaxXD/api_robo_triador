@@ -33,7 +33,17 @@ public class DistritoController {
 	public List<Distrito> listar() {
 		return executeRepository.findAll();
 	}
-
+	
+	@GetMapping("/ativos")
+	public List<Distrito> listarAtivos() {
+		return executeRepository.findAllByAtivoIsTrue();
+	}
+	
+	@GetMapping("/inativos")
+	public List<Distrito> listarInativos() {
+		return executeRepository.findAllByAtivoIsFalse();
+	}
+	
 	private Validador validador = new Validador();
 	
 	@GetMapping("/{executeId}")

@@ -93,6 +93,7 @@ public class ExecucaoClovisJudithController {
 		execucaoClovisJudith.setRobo_id(robo);
 		execucaoClovisJudith.setRodouEm(LocalDate.now());
 		ExecucaoClovisJudith ex = validador.validarExecucaoClovisJudith(execucaoClovisJudith) ? executeRepository.save(execucaoClovisJudith) : null;
+		System.out.println("*****************\n"+execucaoClovisJudith.toString()+"\n***************");
 		return ex == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().build();
 	}
 

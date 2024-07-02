@@ -1,0 +1,6 @@
+alter table interacoes_usuarios rename column quantidade_caracteres_digitados to quantidade_caracteres_lido;
+alter table interacoes_usuarios rename column quantidade_palavras_digitadas to quantidade_palavras_lida;
+alter table interacoes_usuarios rename column quantidade_caracteres_lidos to quantidade_caracteres_digitados;
+alter table interacoes_usuarios rename column quantidade_palavras_lidas to quantidade_palavras_digitadas;
+alter table interacoes_usuarios rename column quantidade_caracteres_lido to quantidade_caracteres_lidos;
+alter table interacoes_usuarios rename column quantidade_palavras_lida to quantidade_palavras_lidas;
