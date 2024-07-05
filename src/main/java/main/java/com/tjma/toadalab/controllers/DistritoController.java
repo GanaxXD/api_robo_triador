@@ -83,7 +83,7 @@ public class DistritoController {
 		if (distritoDoBanco != null) {
 			System.err.println("O distrito não é válido!");
 			return ResponseEntity.badRequest()
-					.body("{Distrito com código Normal já cadastrado no banco: " + distritoDoBanco.toString() + "}");
+					.body("{Há um Distrito Ativo com código já cadastrado no banco: " + distritoDoBanco.toString() + "}");
 		}
 		if(validador.validarDistrito(distrito)) {
 			executeRepository.save(distrito);

@@ -13,6 +13,8 @@ public interface DistritoRepository extends JpaRepository<Distrito, Long> {
 
 	Optional<Distrito> findByCodigo(String codigo);
 
+	Optional<Distrito> findByCodigoAndAtivoIsTrue(String codigo);
+
 	Optional<Distrito> findByNomeDistrito(String nomeDistrito);
 	
 	List<Distrito> findAllByAtivoIsTrue();
