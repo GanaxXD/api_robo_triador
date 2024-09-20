@@ -3,11 +3,10 @@ package main.java.com.tjma.toadalab.services;
 import main.java.com.tjma.toadalab.dtos.DistritoRecordDTO;
 import main.java.com.tjma.toadalab.exception.APIToadaException;
 import main.java.com.tjma.toadalab.models.Distrito;
+import main.java.com.tjma.toadalab.repositories.DistritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import main.java.com.tjma.toadalab.repositories.DistritoRepository;
 
 import java.util.Optional;
 

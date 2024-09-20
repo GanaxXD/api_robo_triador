@@ -21,8 +21,9 @@ public class APIHandlerException extends ResponseEntityExceptionHandler {
     @Autowired
     public MessageSource messageSource;
 
-    @ExceptionHandler(TriadorException.class)
-    public ResponseEntity<Object> handlerNegocio(TriadorException ex, WebRequest web){
+
+    @ExceptionHandler(APIToadaException.class)
+    public ResponseEntity<Object> handlerNegocio(APIToadaException ex, WebRequest web){
         var status = HttpStatus.BAD_REQUEST;
         Problema problema = new Problema();
 
@@ -30,7 +31,7 @@ public class APIHandlerException extends ResponseEntityExceptionHandler {
         problema.setDataDoErro(OffsetDateTime.now());
         problema.setTituloDoErro(ex.getMessage());
 
-        return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, web);
+        return ResponseEntity.badRequest().body("Erro na transação: "+problema.toString() );
     }
 
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
