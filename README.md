@@ -42,6 +42,14 @@ No intuito de evitar a solicitação constante de relatórios para a referida di
  Dessa forma, conseguimos acessar informações analiticas que são importantes para o laboratórios, de forma 
 "autonoma" da DTIC, evitando recorrentes chamados para os servidores do setor (com tempo já muito concorrido).
 
+## Por que Coletamos?
+Vários ações, prêmios e eventos lançados ou produzidos pelo CNJ exigem provas da utilização e resultados comprovados
+ dos projetos inscritos, motivo pelo qual necessitamos constantemente de relatórios analitos dos trabalhos dos nossos projetos, 
+sejam de tecnologia ou não. Além disso, somos provocados pela alta administração do TJMA, por vezes, a apresentar 
+resultados dos nossos projetos. Desta forma, torna-se mais oportuno ter gerencia dessas informações 
+pelo próprio Toada Lab, evitando constantes e recorrentes chamados à DTIC 
+para geração de relatórios que, embora simples, demandam tempo de um setor extremamente concorrido.
+
 ## O Que Coletamos?
 Depende da automação:
 1. **Todas as automações (Dados analíticos):** Ações que seriam realizadas pelo usuário. Coleta:
